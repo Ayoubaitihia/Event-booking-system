@@ -5,7 +5,7 @@ import { Badge } from "../ui/badge";
 export default function EventCard() {
   return(
     <div className="border rounded-lg overflow-hidden">
-      <div className="bg-gray-200 h-25">
+      <div className="bg-gray-200 h-28">
       </div>
       <div className="p-4">
         <h3 className="text-sm font-medium">
