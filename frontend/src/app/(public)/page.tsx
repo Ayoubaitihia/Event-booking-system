@@ -6,7 +6,7 @@ import Events from "@/components/events/Events"
 
 export default function HomePage() {
   return(
-    <div className="">
+    <div>
       <Navbar/>
       <Hero/>
       <FeaturedEvent/>
