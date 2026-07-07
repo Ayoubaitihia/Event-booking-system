@@ -2,6 +2,11 @@ import { LuCalendar1 } from "react-icons/lu";
 import { FaRegClock } from "react-icons/fa6";
 import { Progress } from "@/components/ui/progress"
 import { Button } from "@/components/ui/button"
+import { MdOutlineOpenInNew } from "react-icons/md";
+import { FaMapMarkerAlt } from "react-icons/fa";
+import { RiLinkM } from "react-icons/ri";
+import { CiShare2 } from "react-icons/ci";
+import { CiHeart } from "react-icons/ci";
 
 export default function BookingPanel() {
     return (
@@ -34,6 +39,14 @@ export default function BookingPanel() {
                             <span>400 total</span>
                         </span>
                     </div>
+                    <div className="flex justify-between items-center text-sm py-2">
+                        <span className=" font-normal">Tickets</span>
+                        <div className="flex items-center gap-x-3">
+                            <Button variant="outline" className="cursor-pointer rounded-md">+</Button>
+                            <span className="text-lg">1</span>
+                            <Button variant="outline" className="cursor-pointer rounded-md">-</Button>
+                        </div>
+                    </div>
                 </div>
 
                 <div className="p-4">
@@ -45,6 +58,35 @@ export default function BookingPanel() {
                         Book now
                     </Button>
                     <p className="mt-2 text-xs font-light text-center">Free cancellation up to 48 hours before the event</p>
+                </div>
+            </div>
+
+            <div className="mt-4 bg-gray-100 rounded-md border p-4">
+                <span className="flex items-center gap-x-4">
+                    <FaMapMarkerAlt className="text-gray-800 text-sm"/>
+                    <div className="flex flex-col items-start">
+                        <span className="text-sm">Sofitel Agadir Royal Bay</span>
+                        <span className="text-xs text-gray-800">Agadir, Morocco</span>
+                    </div>
+                </span>
+                <span className="flex items-center gap-x-4 mt-2">
+                    <MdOutlineOpenInNew className="text-gray-800 text-sm"/>
+                    <span className="text-sm text-blue-600">View on map</span>
+                </span>
+            </div>
+
+            <div className="flex mt-4 justify-start items-center gap-x-2">
+                <div className="text-[13px] cursor-pointer flex items-center gap-x-2 border rounded-md p-2">
+                    <RiLinkM />
+                    <span className="font-light">Copy link</span> 
+                </div>
+                <div className="text-[13px] flex cursor-pointer items-center gap-x-2 border rounded-md p-2">
+                    <CiShare2 />
+                    <span className="font-light">Share</span> 
+                </div>
+                <div className="text-[13px] flex cursor-pointer items-center gap-x-2 border rounded-md p-2">
+                    <CiHeart />
+                    <span className="font-light">Save</span> 
                 </div>
             </div>
         </>

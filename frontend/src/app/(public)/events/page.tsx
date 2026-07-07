@@ -28,7 +28,7 @@ export default function EventsPage() {
                 <OrganizerCard/>
             </div>
 
-            <aside>
+            <aside className="sticky top-0">
               <BookingPanel/>
             </aside>
         </div>
