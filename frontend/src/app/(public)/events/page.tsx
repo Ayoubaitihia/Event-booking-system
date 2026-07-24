@@ -10,6 +10,9 @@ import BookingPanel from "@/components/bookings/BookingPanel"
 import RelatedEvents from '@/components/bookings/RelatedEvents'
 
 export default function EventsPage() {
+
+  let qty: number = 120
+
   return (
     <>
         <Navbar/>
@@ -29,7 +32,19 @@ export default function EventsPage() {
             </div>
 
             <aside className="sticky top-0">
-              <BookingPanel/>
+              <BookingPanel
+                price={4900}
+                isFree={false}
+                startsAt="2026-06-14T09:00:00Z"
+                endsAt="2026-06-14T18:00:00Z"
+                booked={320}
+                capacity={400}
+                venue="Sofitel Agadir Royal Bay"
+                address="Agadir, Morocco"
+                shareUrl={`https://evently.com/events`}
+                shareTitle="Event title"
+                qty={qty}
+              />
             </aside>
         </div>
 
