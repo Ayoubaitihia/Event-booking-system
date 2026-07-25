@@ -1,26 +1,49 @@
 import { RiLinkM } from "react-icons/ri";
 import { CiShare2 } from "react-icons/ci";
 import { CiHeart } from "react-icons/ci";
+import { useState } from "react";
 
 interface ShareActionsProps{
-    shareUrl;
-    shareTitle;
+    shareUrl: string;
+    shareTitle: string;
 }
 
 export default function ShareActions({
     shareUrl,
     shareTitle
-}) {
+}: ShareActionsProps) {
+
+    const [copied, setCopied] = useState(false)
+
+    const handleCopy = async () => {
+        await navigator.clipboard.writeText(shareUrl)
+        setCopied(true)
+    }
+
+    const handleShare = async () => {
+        if (navigator.share) {
+            await navigator.share({url: shareUrl, title: shareTitle});
+        } else {
+            await navigator.clipboard.writeText(shareUrl);
+        }
+    }
+
     return (
         <div className="flex mt-4 justify-start items-center gap-x-2">
-            <div className="text-[13px] cursor-pointer flex items-center gap-x-2 border rounded-md p-2">
+            <button 
+                onClick={() => handleCopy()}
+                className="text-[13px] cursor-pointer flex items-center gap-x-2 border rounded-md p-2">
                 <RiLinkM />
-                <span className="font-light">Copy link</span> 
-            </div>
-            <div className="text-[13px] flex cursor-pointer items-center gap-x-2 border rounded-md p-2">
+                <span className="font-light">
+                    {copied ? 'Copied!' : 'Copy link'}
+                </span> 
+            </button>
+            <button 
+                onClick={() => handleShare()}
+                className="text-[13px] flex cursor-pointer items-center gap-x-2 border rounded-md p-2">
                 <CiShare2 />
                 <span className="font-light">Share</span> 
-            </div>
+            </button>
             <div className="text-[13px] flex cursor-pointer items-center gap-x-2 border rounded-md p-2">
                 <CiHeart />
                 <span className="font-light">Save</span> 

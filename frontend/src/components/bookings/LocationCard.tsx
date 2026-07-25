@@ -10,6 +10,11 @@ export default function LocationCard({
     venue,
     address
 }: LocationCardProps) {
+
+    const mapUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
+        `${venue}, ${address}`
+    )}`;
+
     return (
         <div className="mt-4 bg-gray-100 rounded-md border p-4">
             <span className="flex items-center gap-x-4">
@@ -19,10 +24,13 @@ export default function LocationCard({
                     <span className="text-xs text-gray-800">{address}</span>
                 </div>
             </span>
-            <span className="flex items-center gap-x-4 mt-2">
+            <a
+                href={mapUrl} 
+                target="_blank"
+                className="flex items-center gap-x-4 mt-2">
                 <MdOutlineOpenInNew className="text-gray-800 text-sm"/>
                 <span className="text-sm text-blue-600">View on map</span>
-            </span>
+            </a>
         </div>
     )
 }

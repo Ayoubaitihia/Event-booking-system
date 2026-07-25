@@ -40,7 +40,7 @@ export default function EventsPage() {
                 isFree={false}
                 startsAt="2026-06-14T09:00:00Z"
                 endsAt="2026-06-14T18:00:00Z"
-                booked={130}
+                booked={30}
                 capacity={200}
                 venue="Sofitel Agadir Royal Bay"
                 address="Agadir, Morocco"
