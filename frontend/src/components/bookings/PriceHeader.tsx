@@ -7,7 +7,7 @@ export default function PriceHeader({price, isFree}: PriceHeaderProps){
     return (
         <div className="border-b p-4 flex flex-col">
             <span className="text-2xl font-semibold">
-                {isFree ? 'Free' : price}
+                {isFree ? 'Free' : `${price}$`}
             </span>
             
             {!isFree && (

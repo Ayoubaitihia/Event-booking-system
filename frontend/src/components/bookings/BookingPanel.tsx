@@ -1,3 +1,4 @@
+import { Dispatch, SetStateAction } from "react";
 import PriceHeader from "@/components/bookings/PriceHeader"
 import EventDateTime from "./EventDateTime";
 import SeatsBar from "./SeatsBar";
@@ -18,6 +19,7 @@ interface BookingPanelProps{
     shareUrl:  string;
     shareTitle: string;
     qty: number;
+    setQty: Dispatch<SetStateAction<number>>;
 }
 
 
@@ -33,28 +35,55 @@ export default function BookingPanel({
     shareUrl,
     shareTitle,
     qty,
+    setQty,
 }: BookingPanelProps) {
 
+    const seatsleft = capacity - booked
+    const total = qty * price
+
+    console.log("qty", qty)
     
     return (
         <>
             <div className="bg-gray-100 rounded-md border">
-                <PriceHeader price="$49" isFree={false}/>
+                <PriceHeader
+                    price={price} 
+                    isFree={false}
+                />
 
                 <div className="p-4 flex flex-col gap-y-2 border-b">
-                    <EventDateTime/>
-                    <SeatsBar/>
-                    <TicketStepper
-                        value={qty}
+                    <EventDateTime
+                        startsAt={startsAt}
+                        endsAt={endsAt}
                     />
+                    <SeatsBar
+                        booked={booked}
+                        capacity={capacity}
+                    />
+                    {
+                        seatsleft > 0 && (
+                            <TicketStepper
+                                qty={qty}
+                                setQty={setQty}
+                            />
+                        )
+                    }
                 </div>
 
-                <BookingTotal/>
+                <BookingTotal
+                    total={total.toFixed(2)}
+                />
             </div>
 
-            <LocationCard/>
+            <LocationCard
+                venue={venue}
+                address={address}
+            />
 
-            <ShareActions/>
+            <ShareActions
+                shareUrl={shareUrl}
+                shareTitle={shareTitle}
+            />
         </>
     )
 }

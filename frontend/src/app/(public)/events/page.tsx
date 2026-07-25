@@ -1,3 +1,5 @@
+'use client';
+
 import Navbar from "@/components/layout/Navbar"
 import EventCover from '@/app/(public)/events/EventCover'
 import EventPath from '@/app/(public)/events/EventPath'
@@ -8,10 +10,11 @@ import EventSchedule from "@/components/events/EventSchedule"
 import OrganizerCard from "@/components/events/OrganizerCard"
 import BookingPanel from "@/components/bookings/BookingPanel"
 import RelatedEvents from '@/components/bookings/RelatedEvents'
+import { useState } from "react"
 
 export default function EventsPage() {
 
-  let qty: number = 120
+  let [qty, setQty] = useState(1)
 
   return (
     <>
@@ -33,17 +36,18 @@ export default function EventsPage() {
 
             <aside className="sticky top-0">
               <BookingPanel
-                price={4900}
+                price={49}
                 isFree={false}
                 startsAt="2026-06-14T09:00:00Z"
                 endsAt="2026-06-14T18:00:00Z"
-                booked={320}
-                capacity={400}
+                booked={130}
+                capacity={200}
                 venue="Sofitel Agadir Royal Bay"
                 address="Agadir, Morocco"
                 shareUrl={`https://evently.com/events`}
                 shareTitle="Event title"
                 qty={qty}
+                setQty={setQty}
               />
             </aside>
         </div>

@@ -1,11 +1,17 @@
 import { Button } from "@/components/ui/button"
 
-export default function BookingTotal() {
+interface BookingTotalProps{
+    total: number
+}
+
+export default function BookingTotal({
+    total
+}: BookingTotalProps) {
     return (
         <div className="p-4">
             <span className="flex justify-between items-center text-lg font-semibold">
                 <span>Total</span>
-                <span>$49,00</span>
+                <span>${total}</span>
             </span>
             <Button className="mt-2 p-4 py-6 w-full cursor-pointer" variant="outline">
                 Book now

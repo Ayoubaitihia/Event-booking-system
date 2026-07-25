@@ -2,7 +2,15 @@ import { RiLinkM } from "react-icons/ri";
 import { CiShare2 } from "react-icons/ci";
 import { CiHeart } from "react-icons/ci";
 
-export default function ShareActions() {
+interface ShareActionsProps{
+    shareUrl;
+    shareTitle;
+}
+
+export default function ShareActions({
+    shareUrl,
+    shareTitle
+}) {
     return (
         <div className="flex mt-4 justify-start items-center gap-x-2">
             <div className="text-[13px] cursor-pointer flex items-center gap-x-2 border rounded-md p-2">
