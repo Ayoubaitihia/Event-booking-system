@@ -1,4 +1,10 @@
 import { Button } from "@/components/ui/button"
+import {
+  AlertDialog,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog"
+import BookingModal from "./BookingModal"
+
 
 interface BookingTotalProps{
     total: number
@@ -13,10 +19,17 @@ export default function BookingTotal({
                 <span>Total</span>
                 <span>${total}</span>
             </span>
-            <Button className="mt-2 p-4 py-6 w-full cursor-pointer" variant="outline">
-                Book now
-            </Button>
-            <p className="mt-2 text-xs font-light text-center">Free cancellation up to 48 hours before the event</p>
+            <AlertDialog>
+                <AlertDialogTrigger className="w-full">
+                    <Button variant="outline" className="mt-2 p-4 py-6 w-full text-black cursor-pointer">
+                        Book now
+                    </Button>
+                </AlertDialogTrigger>
+                <BookingModal/>
+            </AlertDialog>
+            <p className="mt-2 text-xs font-light text-center">
+                Free cancellation up to 48 hours before the event
+            </p>
         </div>
     )
 }
