@@ -39,7 +39,7 @@ export default function BookingPanel({
 }: BookingPanelProps) {
 
     const seatsleft = capacity - booked
-    const total = qty * price
+    const total: number = qty * price
 
     console.log("qty", qty)
     

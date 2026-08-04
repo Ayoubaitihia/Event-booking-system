@@ -18,7 +18,7 @@ export default function BookingModal() {
             <AlertDialogHeader className="flex border-b pb-2 items-center justify-between">
                 <AlertDialogTitle>Confirm your booking</AlertDialogTitle>
                 <AlertDialogCancel className="border rounded-md cursor p-1">
-                    <IoIosClose size={26} />
+                    <IoIosClose className="cursor-pointer" size={26} />
                 </AlertDialogCancel>
             </AlertDialogHeader>
             <AlertDialogHeader className="flex gap-x-4 items-start border-b pb-2 justify-between">
@@ -41,17 +41,20 @@ export default function BookingModal() {
                     <span className="text-sm font-medium">$2.45</span>
                 </div>
             </AlertDialogHeader>
-            <AlertDialogFooter>
-                <div className="flex items-center justify-between">
-                    <h3>Total</h3>
-                    <h3>$51,45</h3>
-                </div>
-                <div>
-                    <AlertDialogAction>
-                        <Button variant="outline">
-                            Confirm booking
-                        </Button>
-                    </AlertDialogAction>
+            <AlertDialogFooter className="w-full m-0 p-0 border-0 bg-white">
+                <div className="w-full">
+                    <div className="w-full flex items-center justify-between">
+                        <span>Total</span>
+                        <span>$51,45</span>
+                    </div>
+                    <div className="w-full mt-3">
+                        <AlertDialogAction className="w-full">
+                            <Button variant="outline" className="bg-transparent w-full h-full py-3 cursor-pointer border-0 hover:bg-transparent hover:text-white">
+                                Confirm booking
+                            </Button>
+                        </AlertDialogAction>
+                    </div>
+                    <p className="text-[10px] text-center mt-2 text-gray-500">Free cancellation up to 48 hours before the event</p>
                 </div>
                 
                 </AlertDialogFooter>
