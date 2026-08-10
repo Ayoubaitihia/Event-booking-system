@@ -71,6 +71,8 @@ export default function BookingPanel({
                 </div>
 
                 <BookingTotal
+                    price={price}
+                    qty={qty}
                     total={total.toFixed(2)}
                 />
             </div>

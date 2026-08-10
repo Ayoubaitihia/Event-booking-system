@@ -12,7 +12,22 @@ import { IoIosClose } from "react-icons/io";
 import { Button } from "@/components/ui/button"
 
 
-export default function BookingModal() {
+interface BookingModalProps{
+    total: number,
+    price: number,
+    qty: number
+}
+
+
+export default function BookingModal({
+    total,
+    price,
+    qty
+}: BookingModalProps) {
+
+    const fee = price * (5 / 100)
+    const finalprice = Number((Number(total) + Number(fee)).toFixed(2));
+
     return (
         <AlertDialogContent>
             <AlertDialogHeader className="flex border-b pb-2 items-center justify-between">
@@ -33,19 +48,19 @@ export default function BookingModal() {
             </AlertDialogHeader>
             <AlertDialogHeader className="border-b pb-2">
                 <div className="flex items-center w-full justify-between">
-                    <span className="text-xs text-gray-800">$49.00 × 1 ticket</span>
-                    <span className="text-sm font-medium">$49.00</span>
+                    <span className="text-xs text-gray-800">${price} × {qty} ticket</span>
+                    <span className="text-sm font-medium">${total}</span>
                 </div>
                 <div className="flex items-center w-full justify-between">
                     <span className="text-xs text-gray-800">Service fee (5%)</span>
-                    <span className="text-sm font-medium">$2.45</span>
+                    <span className="text-sm font-medium">${fee}</span>
                 </div>
             </AlertDialogHeader>
             <AlertDialogFooter className="w-full m-0 p-0 border-0 bg-white">
                 <div className="w-full">
                     <div className="w-full flex items-center justify-between">
                         <span>Total</span>
-                        <span>$51,45</span>
+                        <span>${finalprice}</span>
                     </div>
                     <div className="w-full mt-3">
                         <AlertDialogAction className="w-full">
@@ -54,7 +69,9 @@ export default function BookingModal() {
                             </Button>
                         </AlertDialogAction>
                     </div>
-                    <p className="text-[10px] text-center mt-2 text-gray-500">Free cancellation up to 48 hours before the event</p>
+                    <p className="text-[10px] text-center mt-2 text-gray-500">
+                        Free cancellation up to 48 hours before the event
+                    </p>
                 </div>
                 
                 </AlertDialogFooter>

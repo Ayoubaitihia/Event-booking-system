@@ -7,11 +7,15 @@ import BookingModal from "./BookingModal"
 
 
 interface BookingTotalProps{
-    total: number
+    total: number,
+    price: number,
+    qty: number
 }
 
 export default function BookingTotal({
-    total
+    total,
+    qty,
+    price
 }: BookingTotalProps) {
     return (
         <div className="p-4">
@@ -25,7 +29,11 @@ export default function BookingTotal({
                         Book now
                     </Button>
                 </AlertDialogTrigger>
-                <BookingModal/>
+                <BookingModal 
+                    price={price}
+                    qty={qty}
+                    total={total} 
+                />
             </AlertDialog>
             <p className="mt-2 text-xs font-light text-center">
                 Free cancellation up to 48 hours before the event
