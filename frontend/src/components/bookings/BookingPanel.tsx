@@ -10,7 +10,7 @@ import { useEventContext } from "@/app/(public)/events/EventContext";
 
 export default function BookingPanel() {
 
-    const {event, setEvent} = useEventContext()
+    const {event} = useEventContext()
 
     const seatsleft = event.capacity - event.booked
     const total: number = event.qty * event.price
@@ -18,20 +18,11 @@ export default function BookingPanel() {
     return (
         <>
             <div className="bg-gray-100 rounded-md border">
-                <PriceHeader
-                    price={event.price} 
-                    isFree={false}
-                />
+                <PriceHeader/>
 
                 <div className="p-4 flex flex-col gap-y-2 border-b">
-                    <EventDateTime
-                        startsAt={event.startsAt}
-                        endsAt={event.endsAt}
-                    />
-                    <SeatsBar
-                        booked={event.booked}
-                        capacity={event.capacity}
-                    />
+                    <EventDateTime/>
+                    <SeatsBar/>
                     {
                         seatsleft > 0 && (
                             <TicketStepper/>
@@ -39,22 +30,12 @@ export default function BookingPanel() {
                     }
                 </div>
 
-                <BookingTotal
-                    price={event.price}
-                    qty={event.qty}
-                    total={total.toFixed(2)}
-                />
+                <BookingTotal/>
             </div>
 
-            <LocationCard
-                venue={event.venue}
-                address={event.address}
-            />
+            <LocationCard/>
 
-            <ShareActions
-                shareUrl={event.shareUrl}
-                shareTitle={event.shareTitle}
-            />
+            <ShareActions/>
         </>
     )
 }

@@ -1,16 +1,17 @@
-interface PriceHeaderProps{
-    price: number,
-    isFree: boolean
-}
+import { useEventContext } from "@/app/(public)/events/EventContext"
 
-export default function PriceHeader({price, isFree}: PriceHeaderProps){
+
+export default function PriceHeader(){
+
+    const {event} = useEventContext()
+
     return (
         <div className="border-b p-4 flex flex-col">
             <span className="text-2xl font-semibold">
-                {isFree ? 'Free' : `${price}$`}
+                {event.isFree ? 'Free' : `${event.price}$`}
             </span>
             
-            {!isFree && (
+            {!event.isFree && (
                 <span className="text-sm">per person</span>
             )}
         </div> 

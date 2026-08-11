@@ -1,30 +1,26 @@
+import { useEventContext } from "@/app/(public)/events/EventContext";
 import { RiLinkM } from "react-icons/ri";
 import { CiShare2 } from "react-icons/ci";
 import { CiHeart } from "react-icons/ci";
 import { useState } from "react";
 
-interface ShareActionsProps{
-    shareUrl: string;
-    shareTitle: string;
-}
 
-export default function ShareActions({
-    shareUrl,
-    shareTitle
-}: ShareActionsProps) {
+export default function ShareActions() {
+
+    const {event} = useEventContext()
 
     const [copied, setCopied] = useState(false)
 
     const handleCopy = async () => {
-        await navigator.clipboard.writeText(shareUrl)
+        await navigator.clipboard.writeText(event.shareUrl)
         setCopied(true)
     }
 
     const handleShare = async () => {
         if (navigator.share) {
-            await navigator.share({url: shareUrl, title: shareTitle});
+            await navigator.share({url: event.shareUrl, title: event.shareTitle});
         } else {
-            await navigator.clipboard.writeText(shareUrl);
+            await navigator.clipboard.writeText(event.shareUrl);
         }
     }
 

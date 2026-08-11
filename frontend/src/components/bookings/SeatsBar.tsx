@@ -1,18 +1,13 @@
 import { Progress } from "@/components/ui/progress"
 import { PcCase } from "lucide-react";
+import { useEventContext } from "@/app/(public)/events/EventContext";
 
-interface SeatsBarProps{
-    booked: number;
-    capacity: number;
-}
-
-export default function SeatsBar({
-    booked,
-    capacity
-}: SeatsBarProps)
+export default function SeatsBar()
 {
-    const left = capacity - booked
-    const pct = (booked / capacity) * 100
+
+    const {event} = useEventContext()
+    const left = event.capacity - event.booked
+    const pct = (event.booked / event.capacity) * 100
 
     return (
         <div className="flex flex-col justify-between text-sm">
@@ -24,7 +19,7 @@ export default function SeatsBar({
                     : `${left} seat${left == 1 ? '' : 's'} left`
                     }
                 </span>
-                <span>{capacity} total</span>
+                <span>{event.capacity} total</span>
             </span>
         </div>
     )

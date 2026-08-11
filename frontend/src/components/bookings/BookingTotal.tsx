@@ -4,19 +4,14 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog"
 import BookingModal from "./BookingModal"
+import { useEventContext } from "@/app/(public)/events/EventContext"
 
 
-interface BookingTotalProps{
-    total: number,
-    price: number,
-    qty: number
-}
+export default function BookingTotal() {
 
-export default function BookingTotal({
-    total,
-    qty,
-    price
-}: BookingTotalProps) {
+    const {event} = useEventContext()
+    const total: number = event.qty * event.price
+
     return (
         <div className="p-4">
             <span className="flex justify-between items-center text-lg font-semibold">
@@ -30,8 +25,8 @@ export default function BookingTotal({
                     </Button>
                 </AlertDialogTrigger>
                 <BookingModal 
-                    price={price}
-                    qty={qty}
+                    price={event.price}
+                    qty={event.qty}
                     total={total} 
                 />
             </AlertDialog>

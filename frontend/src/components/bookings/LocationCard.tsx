@@ -1,18 +1,13 @@
 import { MdOutlineOpenInNew } from "react-icons/md";
 import { FaMapMarkerAlt } from "react-icons/fa";
+import { useEventContext } from "@/app/(public)/events/EventContext";
 
-interface LocationCardProps{
-    venue: string;
-    address: string;
-}
+export default function LocationCard() {
 
-export default function LocationCard({
-    venue,
-    address
-}: LocationCardProps) {
-
+    const {event} = useEventContext()
+    
     const mapUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
-        `${venue}, ${address}`
+        `${event.venue}, ${event.address}`
     )}`;
 
     return (
@@ -20,8 +15,8 @@ export default function LocationCard({
             <span className="flex items-center gap-x-4">
                 <FaMapMarkerAlt className="text-gray-800 text-sm"/>
                 <div className="flex flex-col items-start">
-                    <span className="text-sm">{venue}</span>
-                    <span className="text-xs text-gray-800">{address}</span>
+                    <span className="text-sm">{event.venue}</span>
+                    <span className="text-xs text-gray-800">{event.address}</span>
                 </div>
             </span>
             <a
