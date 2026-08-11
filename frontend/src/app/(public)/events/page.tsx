@@ -12,31 +12,45 @@ import BookingPanel from "@/components/bookings/BookingPanel"
 import RelatedEvents from '@/components/bookings/RelatedEvents'
 import { Dispatch, SetStateAction } from "react";
 import { useState } from "react"
+import { useEventContext } from "./EventContext";
+import { EventContext } from "./EventContext";
 
 
-  export interface EventProps{
-    price:     number;
-    isFree:    boolean;
-    startsAt:  string;
-    endsAt:    string;
-    booked:    number;
-    capacity:  number;
-    venue:     string;
-    address:   string;
-    shareUrl:  string;
-    shareTitle: string;
-    qty: number;
-    setQty: Dispatch<SetStateAction<number>>;
-  }
+export interface EventProps{
+  price:     number;
+  isFree:    boolean;
+  startsAt:  string;
+  endsAt:    string;
+  booked:    number;
+  capacity:  number;
+  venue:     string;
+  address:   string;
+  shareUrl:  string;
+  qty: number;
+  shareTitle: string;
+}
+
+
+export interface EventPropsType{
+  event: EventProps,
+  setEvent: React.Dispatch<React.SetStateAction<EventProps>>
+}
 
 
 export default function EventsPage() {
 
-  let [qty, setQty] = useState(1)
-
-  const [userOne, setUserOne] = useState<User>({
-    login: "ayait-ih",
-    password: "1234"
+  const [event, setEvent] = useState<EventProps>({
+    price: 49,
+    isFree: false,
+    startsAt: "2026-06-14T09:00:00Z",
+    endsAt: "2026-06-14T18:00:00Z",
+    booked: 30,
+    capacity: 200,
+    venue: "Sofitel Agadir Royal Bay",
+    address: "Agadir, Morocco",
+    shareUrl: "https://evently.com/events",
+    shareTitle: "Event title",
+    qty: 1,
   })
 
 
@@ -45,40 +59,34 @@ export default function EventsPage() {
         <Navbar/>
         <EventCover/>
 
-        <div className="p-6 lg:px-8 grid grid-cols-[1fr_350px] gap-6">
-            <div className="flex flex-col gap-y-5.5">
-                <EventPath/>
-                <EventMeta/>
-                <h1 className="text-2xl font-semibold">
-                  Next.js & Laravel Full-Stack Conference 2026
-                </h1>
-                <EventInfoGrid/>
-                <EventDescription/>
-                <EventSchedule/>
-                <OrganizerCard/>
-            </div>
+        <EventContext.Provider
+          value={{
+            event: event,
+            setEvent: setEvent
+          }}
+        >
+          <div className="p-6 lg:px-8 grid grid-cols-[1fr_350px] gap-6">
+              <div className="flex flex-col gap-y-5.5">
+                  <EventPath/>
+                  <EventMeta/>
+                  <h1 className="text-2xl font-semibold">
+                    Next.js & Laravel Full-Stack Conference 2026
+                  </h1>
+                  <EventInfoGrid/>
+                  <EventDescription/>
+                  <EventSchedule/>
+                  <OrganizerCard/>
+              </div>
 
-            <aside className="sticky top-0">
-              <BookingPanel
-                price={49}
-                isFree={false}
-                startsAt="2026-06-14T09:00:00Z"
-                endsAt="2026-06-14T18:00:00Z"
-                booked={30}
-                capacity={200}
-                venue="Sofitel Agadir Royal Bay"
-                address="Agadir, Morocco"
-                shareUrl={`https://evently.com/events`}
-                shareTitle="Event title"
-                qty={qty}
-                setQty={setQty}
-              />
-            </aside>
-        </div>
+              <aside className="sticky top-0">
+                <BookingPanel/>
+              </aside>
+          </div>
 
-        <div className="p-6 lg:px-8">
-          <RelatedEvents/>
-        </div>
+          <div className="p-6 lg:px-8">
+            <RelatedEvents/>
+          </div>
+        </EventContext.Provider>
       
     </>
   );

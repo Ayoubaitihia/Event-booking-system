@@ -1,15 +1,22 @@
 import { Button } from "@/components/ui/button"
 import { Dispatch, SetStateAction } from "react";
+import { useEventContext } from "@/app/(public)/events/EventContext";
 
-interface TicketStepperProps {
-    qty: number;
-    setQty: Dispatch<SetStateAction<number>>;
-}
 
-export default function TicketStepper({
-    qty,
-    setQty
-}: TicketStepperProps) {
+export default function TicketStepper() {
+
+    const {event, setEvent} = useEventContext()
+
+    const handleIncrQty = () =>{
+        const quantity = event.qty + 1
+        setEvent({...event, qty: quantity})
+    }
+
+    const handleDecrQty = () =>{
+        const quantity = Math.max(1, event.qty - 1)
+        setEvent({...event, qty: quantity})
+    }
+
     return (
         <div className="flex justify-between items-center text-sm py-2">
             <span className=" font-normal">Tickets</span>
@@ -17,13 +24,13 @@ export default function TicketStepper({
                 <Button 
                     variant="outline" 
                     className="cursor-pointer rounded-md"
-                    onClick={() => setQty((value) => value + 1)}
+                    onClick={handleIncrQty}
                 >+</Button>
-                <span className="text-lg">{qty}</span>
+                <span className="text-lg">{event.qty}</span>
                 <Button
                     variant="outline" 
                     className="cursor-pointer rounded-md"
-                    onClick={() => setQty((value) => Math.max(1, value - 1))}
+                    onClick={handleDecrQty}
                 >-</Button>
             </div>
         </div>
