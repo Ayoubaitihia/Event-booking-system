@@ -10,11 +10,35 @@ import EventSchedule from "@/components/events/EventSchedule"
 import OrganizerCard from "@/components/events/OrganizerCard"
 import BookingPanel from "@/components/bookings/BookingPanel"
 import RelatedEvents from '@/components/bookings/RelatedEvents'
+import { Dispatch, SetStateAction } from "react";
 import { useState } from "react"
+
+
+  export interface EventProps{
+    price:     number;
+    isFree:    boolean;
+    startsAt:  string;
+    endsAt:    string;
+    booked:    number;
+    capacity:  number;
+    venue:     string;
+    address:   string;
+    shareUrl:  string;
+    shareTitle: string;
+    qty: number;
+    setQty: Dispatch<SetStateAction<number>>;
+  }
+
 
 export default function EventsPage() {
 
   let [qty, setQty] = useState(1)
+
+  const [userOne, setUserOne] = useState<User>({
+    login: "ayait-ih",
+    password: "1234"
+  })
+
 
   return (
     <>

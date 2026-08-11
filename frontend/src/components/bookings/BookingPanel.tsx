@@ -7,6 +7,7 @@ import BookingTotal from "./BookingTotal";
 import LocationCard from "./LocationCard";
 import ShareActions from "./ShareActions";
 
+
 interface BookingPanelProps{
     price:     number;
     isFree:    boolean;
