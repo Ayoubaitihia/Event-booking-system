@@ -1,4 +1,4 @@
-import { useEventContext } from "./EventContext";
+import { useEventContext } from "@/context/EventContext";
 
 export default function EventDescription() {
 

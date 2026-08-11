@@ -4,7 +4,7 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog"
 import BookingModal from "./BookingModal"
-import { useEventContext } from "@/app/(public)/events/EventContext"
+import { useEventContext } from "@/context/EventContext"
 
 
 export default function BookingTotal() {

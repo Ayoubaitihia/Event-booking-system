@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button"
 import { Dispatch, SetStateAction } from "react";
-import { useEventContext } from "@/app/(public)/events/EventContext";
+import { useEventContext } from "@/context/EventContext";
 
 
 export default function TicketStepper() {

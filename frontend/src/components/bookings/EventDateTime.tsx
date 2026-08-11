@@ -1,6 +1,6 @@
 import { LuCalendar1 } from "react-icons/lu";
 import { FaRegClock } from "react-icons/fa6";
-import { useEventContext } from "@/app/(public)/events/EventContext";
+import { useEventContext } from "@/context/EventContext";
 
 
 export default function EventDateTime(){

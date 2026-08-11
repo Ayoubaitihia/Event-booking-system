@@ -1,4 +1,4 @@
-import { useEventContext } from "@/app/(public)/events/EventContext";
+import { useEventContext } from "@/context/EventContext";
 import { Button } from "@/components/ui/button"
 
 export default function OrganizerCard() {

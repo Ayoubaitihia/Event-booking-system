@@ -1,6 +1,6 @@
 import { Progress } from "@/components/ui/progress"
 import { PcCase } from "lucide-react";
-import { useEventContext } from "@/app/(public)/events/EventContext";
+import { useEventContext } from "@/context/EventContext";
 
 export default function SeatsBar()
 {

@@ -6,7 +6,7 @@ import TicketStepper from "./TicketStepper";
 import BookingTotal from "./BookingTotal";
 import LocationCard from "./LocationCard";
 import ShareActions from "./ShareActions";
-import { useEventContext } from "@/app/(public)/events/EventContext";
+import { useEventContext } from "@/context/EventContext";
 
 export default function BookingPanel() {
 

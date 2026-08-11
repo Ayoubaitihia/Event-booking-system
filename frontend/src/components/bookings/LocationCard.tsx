@@ -1,6 +1,6 @@
 import { MdOutlineOpenInNew } from "react-icons/md";
 import { FaMapMarkerAlt } from "react-icons/fa";
-import { useEventContext } from "@/app/(public)/events/EventContext";
+import { useEventContext } from "@/context/EventContext";
 
 export default function LocationCard() {
 

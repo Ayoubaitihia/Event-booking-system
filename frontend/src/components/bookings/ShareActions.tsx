@@ -1,4 +1,4 @@
-import { useEventContext } from "@/app/(public)/events/EventContext";
+import { useEventContext } from "@/context/EventContext";
 import { RiLinkM } from "react-icons/ri";
 import { CiShare2 } from "react-icons/ci";
 import { CiHeart } from "react-icons/ci";

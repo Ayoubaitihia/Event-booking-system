@@ -2,7 +2,7 @@
 
 import { createContext, useContext } from "react"
 
-import { EventPropsType } from "./page"
+import { EventPropsType } from "../app/(public)/events/page"
 
 export const EventContext = createContext<EventPropsType | undefined>(undefined)
 

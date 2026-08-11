@@ -1,17 +1,17 @@
 'use client';
 
 import Navbar from "@/components/layout/Navbar"
-import EventCover from '@/app/(public)/events/EventCover'
-import EventPath from '@/app/(public)/events/EventPath'
-import EventMeta from '@/app/(public)/events/EventMeta'
-import EventInfoGrid from '@/app/(public)/events/EventInfoGrid'
-import EventDescription from '@/app/(public)/events/EventDescription'
+import EventCover from "@/components/events/EventCover";
+import EventPath from "@/components/events/EventPath";
+import EventMeta from "@/components/events/EventMeta";
+import EventInfoGrid from "@/components/events/EventInfoGrid";
+import EventDescription from "@/components/events/EventDescription";
 import EventSchedule from "@/components/events/EventSchedule"
 import OrganizerCard from "@/components/events/OrganizerCard"
 import BookingPanel from "@/components/bookings/BookingPanel"
 import RelatedEvents from '@/components/bookings/RelatedEvents'
 import { useState } from "react"
-import { EventContext } from "./EventContext";
+import { EventContext } from "../../../context/EventContext";
 
 export interface AgendaItem {
   time:     string;
@@ -108,7 +108,7 @@ export default function EventsPage() {
             setEvent: setEvent
           }}
         >
-          <div className="p-6 lg:px-8 grid grid-cols-[1fr_350px] gap-6">
+          <div className="p-6 lg:px-8 grid md:grid-cols-[1fr_350px] gap-6">
               <div className="flex flex-col gap-y-5.5">
                   <EventPath/>
                   <EventMeta/>
