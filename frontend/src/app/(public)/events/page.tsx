@@ -10,9 +10,7 @@ import EventSchedule from "@/components/events/EventSchedule"
 import OrganizerCard from "@/components/events/OrganizerCard"
 import BookingPanel from "@/components/bookings/BookingPanel"
 import RelatedEvents from '@/components/bookings/RelatedEvents'
-import { Dispatch, SetStateAction } from "react";
 import { useState } from "react"
-import { useEventContext } from "./EventContext";
 import { EventContext } from "./EventContext";
 
 

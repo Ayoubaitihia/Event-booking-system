@@ -16,7 +16,7 @@ export default function BookingTotal() {
         <div className="p-4">
             <span className="flex justify-between items-center text-lg font-semibold">
                 <span>Total</span>
-                <span>${total}</span>
+                <span>${!event.isFree ? total : 0}</span>
             </span>
             <AlertDialog>
                 <AlertDialogTrigger className="w-full">

@@ -1,3 +1,4 @@
+import { useEventContext } from "@/app/(public)/events/EventContext";
 import {
   AlertDialogAction,
   AlertDialogCancel,
@@ -12,20 +13,12 @@ import { IoIosClose } from "react-icons/io";
 import { Button } from "@/components/ui/button"
 
 
-interface BookingModalProps{
-    total: number,
-    price: number,
-    qty: number
-}
+export default function BookingModal() {
 
+    const {event} = useEventContext()
 
-export default function BookingModal({
-    total,
-    price,
-    qty
-}: BookingModalProps) {
-
-    const fee = price * (5 / 100)
+    const total: number = event.qty * event.price
+    const fee = event.price * (5 / 100)
     const finalprice = Number((Number(total) + Number(fee)).toFixed(2));
 
     return (
@@ -48,7 +41,7 @@ export default function BookingModal({
             </AlertDialogHeader>
             <AlertDialogHeader className="border-b pb-2">
                 <div className="flex items-center w-full justify-between">
-                    <span className="text-xs text-gray-800">${price} × {qty} ticket</span>
+                    <span className="text-xs text-gray-800">${event.price} × {event.qty} ticket</span>
                     <span className="text-sm font-medium">${total}</span>
                 </div>
                 <div className="flex items-center w-full justify-between">
