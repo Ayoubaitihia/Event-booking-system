@@ -6,9 +6,9 @@ import { Button } from "../ui/button";
 
 export default function FeaturedEventCard() {
   return(
-    <div className="border border-gray-200 rounded-lg grid grid-cols-2 overflow-hidden">
+    <div className="border border-gray-200 rounded-lg grid md:grid-cols-2 overflow-hidden">
       
-      <div className="bg-gray-300 w-full"></div>
+      <div className="bg-gray-300 w-full md:h-full h-76"></div>
       <div className="flex flex-col p-8">
         <div className="flex items-center gap-x-2 pb-3">
           <Badge>Tech</Badge>

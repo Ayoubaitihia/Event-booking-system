@@ -34,9 +34,9 @@ export default function BookingModal() {
                     <LuCalendarDays size={22} />
                 </div>
                 <div>
-                    <h3 className="text-sm font-semibold">Next.js & Laravel Full-Stack Conference 2026</h3>
+                    <h3 className="text-sm font-semibold">{event.title}</h3>
                     <h5 className="text-xs">Sat, 14 Jun 2026 · 9:00 AM</h5>
-                    <h5 className="text-xs">Sofitel Agadir Royal Bay</h5>
+                    <h5 className="text-xs">{event.venue}</h5>
                 </div>
             </AlertDialogHeader>
             <AlertDialogHeader className="border-b pb-2">

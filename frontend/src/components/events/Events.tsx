@@ -12,7 +12,7 @@ export default function Events() {
             <span className="text-xs">124 events found</span>
             
         </div>
-        <div className="grid grid-cols-4 pt-4 gap-4">
+        <div className="grid lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 pt-4 gap-4">
             <EventCard/>
             <EventCard/>
             <EventCard/>

@@ -24,11 +24,7 @@ export default function BookingTotal() {
                         Book now
                     </Button>
                 </AlertDialogTrigger>
-                <BookingModal 
-                    price={event.price}
-                    qty={event.qty}
-                    total={total} 
-                />
+                <BookingModal />
             </AlertDialog>
             <p className="mt-2 text-xs font-light text-center">
                 Free cancellation up to 48 hours before the event

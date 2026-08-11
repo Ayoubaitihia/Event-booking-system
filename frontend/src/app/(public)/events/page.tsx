@@ -19,6 +19,14 @@ export interface AgendaItem {
   speaker?: string;
 }
 
+export interface organizerType{
+  id: number,
+  name: string,
+  email: string,
+  event_count: number,
+  attendee_count: number
+}
+
 export interface EventProps{
   id:         number,
   title:      string,
@@ -36,6 +44,8 @@ export interface EventProps{
   shareUrl:  string;
   qty: number;
   shareTitle: string;
+
+  organizer: organizerType
 
   agenda: AgendaItem[];
 }
@@ -67,6 +77,14 @@ export default function EventsPage() {
     shareUrl: "https://evently.com/events",
     shareTitle: "Event title",
     qty: 1,
+
+    organizer: {
+      id:             1,
+      name:           'Amine Mrani',
+      email:          'amine@example.com',
+      event_count:    12,
+      attendee_count: 3400,
+    },
 
     agenda: [
       { time: '08:30', title: 'Registration & welcome coffee' },

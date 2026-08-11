@@ -6,7 +6,7 @@ import Events from "@/components/events/Events"
 
 export default function HomePage() {
   return(
-    <div>
+    <div className="max-w-375 mx-auto w-full">
       <Navbar/>
       <Hero/>
       <FeaturedEvent/>
