@@ -13,7 +13,6 @@ export default function BookingPanel() {
     const {event} = useEventContext()
 
     const seatsleft = event.capacity - event.booked
-    const total: number = event.qty * event.price
     
     return (
         <>

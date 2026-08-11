@@ -13,8 +13,18 @@ import RelatedEvents from '@/components/bookings/RelatedEvents'
 import { useState } from "react"
 import { EventContext } from "./EventContext";
 
+export interface AgendaItem {
+  time:     string;
+  title:    string;
+  speaker?: string;
+}
 
 export interface EventProps{
+  id:         number,
+  title:      string,
+  slug:       string,
+  description: string,
+
   price:     number;
   isFree:    boolean;
   startsAt:  string;
@@ -26,6 +36,8 @@ export interface EventProps{
   shareUrl:  string;
   qty: number;
   shareTitle: string;
+
+  agenda: AgendaItem[];
 }
 
 
@@ -38,6 +50,12 @@ export interface EventPropsType{
 export default function EventsPage() {
 
   const [event, setEvent] = useState<EventProps>({
+    
+    id: 1,
+    title: 'Next.js & Laravel Full-Stack Conference 2026',
+    slug: 'nextjs-laravel-conference-2026',
+    description: 'Two days of deep-dive talks on modern full-stack development. Speakers from Vercel, Laravel core team, and companies shipping production apps at scale.',
+
     price: 49,
     isFree: false,
     startsAt: "2026-06-14T09:00:00Z",
@@ -49,6 +67,15 @@ export default function EventsPage() {
     shareUrl: "https://evently.com/events",
     shareTitle: "Event title",
     qty: 1,
+
+    agenda: [
+      { time: '08:30', title: 'Registration & welcome coffee' },
+      { time: '09:00', title: 'Keynote — The future of full-stack', speaker: 'Vercel team' },
+      { time: '10:30', title: 'Deep dive — Laravel Sanctum & API auth', speaker: 'Taylor Otwell' },
+      { time: '13:00', title: 'Lunch break' },
+      { time: '14:00', title: 'Workshop — Server Actions in production' },
+      { time: '17:00', title: 'Panel — Monorepo patterns & deployment' },
+    ],
   })
 
 
@@ -68,7 +95,7 @@ export default function EventsPage() {
                   <EventPath/>
                   <EventMeta/>
                   <h1 className="text-2xl font-semibold">
-                    Next.js & Laravel Full-Stack Conference 2026
+                    {event.title}
                   </h1>
                   <EventInfoGrid/>
                   <EventDescription/>
