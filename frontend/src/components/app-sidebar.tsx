@@ -3,9 +3,18 @@
 import * as React from "react"
 
 import { NavMain } from "@/components/nav-main"
-import { NavProjects } from "@/components/nav-projects"
 import { NavSecondary } from "@/components/nav-secondary"
 import { NavUser } from "@/components/nav-user"
+import { FaRegHeart } from "react-icons/fa";
+import { LuTicket } from "react-icons/lu";
+import { CgProfile } from "react-icons/cg";
+import { FiSearch } from "react-icons/fi";
+import { LuLayoutDashboard } from "react-icons/lu";
+import { IoMdAddCircleOutline } from "react-icons/io";
+import { MdOutlineEvent } from "react-icons/md";
+import { IoStatsChartOutline } from "react-icons/io5";
+import { LuUsers } from "react-icons/lu";
+import { FaCheckDouble } from "react-icons/fa6";
 import {
   Sidebar,
   SidebarContent,
@@ -23,105 +32,6 @@ const data = {
     email: "m@example.com",
     avatar: "/avatars/shadcn.jpg",
   },
-  navMain: [
-    {
-      title: "Playground",
-      url: "#",
-      icon: (
-        <TerminalSquareIcon
-        />
-      ),
-      isActive: true,
-      items: [
-        {
-          title: "History",
-          url: "#",
-        },
-        {
-          title: "Starred",
-          url: "#",
-        },
-        {
-          title: "Settings",
-          url: "#",
-        },
-      ],
-    },
-    {
-      title: "Models",
-      url: "#",
-      icon: (
-        <BotIcon
-        />
-      ),
-      items: [
-        {
-          title: "Genesis",
-          url: "#",
-        },
-        {
-          title: "Explorer",
-          url: "#",
-        },
-        {
-          title: "Quantum",
-          url: "#",
-        },
-      ],
-    },
-    {
-      title: "Documentation",
-      url: "#",
-      icon: (
-        <BookOpenIcon
-        />
-      ),
-      items: [
-        {
-          title: "Introduction",
-          url: "#",
-        },
-        {
-          title: "Get Started",
-          url: "#",
-        },
-        {
-          title: "Tutorials",
-          url: "#",
-        },
-        {
-          title: "Changelog",
-          url: "#",
-        },
-      ],
-    },
-    {
-      title: "Settings",
-      url: "#",
-      icon: (
-        <Settings2Icon
-        />
-      ),
-      items: [
-        {
-          title: "General",
-          url: "#",
-        },
-        {
-          title: "Team",
-          url: "#",
-        },
-        {
-          title: "Billing",
-          url: "#",
-        },
-        {
-          title: "Limits",
-          url: "#",
-        },
-      ],
-    },
-  ],
   navSecondary: [
     {
       title: "Support",
@@ -140,29 +50,93 @@ const data = {
       ),
     },
   ],
-  projects: [
+  navMain: [
     {
-      name: "Design Engineering",
+      name: "Dashboard",
       url: "#",
       icon: (
-        <FrameIcon
-        />
+        <LuLayoutDashboard />
       ),
     },
     {
-      name: "Sales & Marketing",
+      name: "Discover",
       url: "#",
       icon: (
-        <PieChartIcon
-        />
+        <FiSearch />
       ),
     },
     {
-      name: "Travel",
+      name: "My tickets",
+      url: "/my-tickets",
+      icon: (
+        <LuTicket />
+      ),
+    },
+    {
+      name: "Saved",
       url: "#",
       icon: (
-        <MapIcon
-        />
+        <FaRegHeart />
+      ),
+    },
+    {
+      name: "Profile",
+      url: "#",
+      icon: (
+        <CgProfile />
+      ),
+    },
+  ],
+  navOrganizer: [
+    {
+      name: "My events",
+      url: "#",
+      icon: (
+        <MdOutlineEvent />
+      ),
+    },
+    {
+      name: "New event",
+      url: "#",
+      icon: (
+        <IoMdAddCircleOutline />
+      ),
+    },
+    {
+      name: "Profile",
+      url: "/my-tickets",
+      icon: (
+        <CgProfile />
+      ),
+    },
+  ],
+  navAdmin: [
+    {
+      name: "Approvals",
+      url: "#",
+      icon: (
+        <FaCheckDouble />
+      ),
+    },
+    {
+      name: "Users",
+      url: "#",
+      icon: (
+        <LuUsers />
+      ),
+    },
+     {
+      name: "Stats",
+      url: "/my-tickets",
+      icon: (
+        <IoStatsChartOutline />
+      ),
+    },
+    {
+      name: "Profile",
+      url: "/my-tickets",
+      icon: (
+        <CgProfile />
       ),
     },
   ],
@@ -190,7 +164,6 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       </SidebarHeader>
       <SidebarContent>
         <NavMain items={data.navMain} />
-        <NavProjects projects={data.projects} />
         <NavSecondary items={data.navSecondary} className="mt-auto" />
       </SidebarContent>
       <SidebarFooter>
