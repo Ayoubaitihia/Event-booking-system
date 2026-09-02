@@ -27,7 +27,7 @@ export default function TicketStatsRow(){
     return (
         <div className="grid grid-cols-4 items-center gap-x-4">
             {Booking.map((item) => (
-                <div className="border p-4 rounded-xl relative overflow-hidden">
+                <div key={item.id} className="border p-4 rounded-xl relative overflow-hidden">
                     <div className="absolute top-0 left-0 w-full h-1 bg-red-400" />
                     <h2 className="text-lg font-semibold">{item.total}</h2>
                     <h3 className="text-gray-700 text-sm font-medium">{item.type}</h3>
