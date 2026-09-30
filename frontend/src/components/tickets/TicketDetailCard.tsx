@@ -47,7 +47,7 @@ export default function TicketDetailCard()
                     </Button>
                     <Button 
                         variant="outline"
-                        className="text-xs rounded-sm cursor-pointer border-red-200 text-red-600 bg-red-100"
+                        className="text-xs rounded-sm hover:bg-red-100 hover:text-red-600 cursor-pointer border-red-200 text-red-600 bg-red-100"
                     >
                         <IoIosClose />
                         Cancel booking

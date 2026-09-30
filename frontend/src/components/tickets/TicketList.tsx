@@ -35,7 +35,8 @@ export default function TicketList(){
             <TicketTabs tabs={data.tabs}/>
             <TicketSearchFilter/>
             <TabsContent value="all">
-                <div className="grid grid-cols-3 gap-2">
+                <span className="text-xs text-gray-700">Showing 6 of 6 tickets</span>
+                <div className="grid grid-cols-3 mt-2 gap-2">
                     <TicketCard/>
                 </div>
             </TabsContent>
