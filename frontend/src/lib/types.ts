@@ -1,3 +1,14 @@
+import { IconType } from "react-icons";
+
+export type EventStatus = "draft" | "published" | "cancelled" | "completed";
+
+
+export interface Category{
+    id: number;
+    name: string;
+    slug: string;
+    icon: IconType;
+}
 
 export interface EventFormData{
 
@@ -21,3 +32,21 @@ export interface EventFormData{
     is_free:     boolean;
     max_per_order: number;
 }
+
+
+export const defaultFormData: EventFormData = {
+    title: "",
+    description: "",
+    category: "",
+    cover_image: null,
+    starts_at: "",
+    ends_at: "",
+    is_online: false,
+    online_url: "",
+    location: "",
+    address: "",
+    capacity: 100,
+    price: 0,
+    is_free: false,
+    max_per_order: 10,
+};
