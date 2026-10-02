@@ -4,7 +4,7 @@ export default function NewTicket()
 {
     return(
         <SideBar>
-            New Event
+            New Eventj
         </SideBar>
     )
 }
