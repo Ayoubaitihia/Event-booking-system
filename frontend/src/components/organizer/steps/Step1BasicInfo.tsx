@@ -63,7 +63,7 @@ export default function Step1BasicInfo()
             </div>
 
             <div className="flex flex-col gap-2">
-                <span className="text-xs">Category *</span>
+                <span className="text-xs">Cover image *</span>
 
                 <ImageUpload />
             </div>

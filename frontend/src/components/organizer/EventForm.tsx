@@ -6,6 +6,8 @@ import Step1BasicInfo from "./steps/Step1BasicInfo";
 import Step2BasicInfo from "./steps/Step2DateTime";
 import Step3BasicInfo from "./steps/Step3Tickets";
 import Step4BasicInfo from "./steps/Step4Review";
+import { Button } from "@/components/ui/button"
+import { FiArrowRight, FiArrowLeft } from "react-icons/fi";
 
 const STEPS = ["Basics info", "Data & location", "Tickets", "Review"]
 const TOTAL = STEPS.length
@@ -26,6 +28,24 @@ export default function EventForm()
             <FormStepper step={step} steps={STEPS} />
 
             {stepComponents[step]}
+
+            <div className="grid mt-4 grid-cols-3 gap-x-2">
+                <Button
+                    className="text-xs flex py-4 gap-x-0.5"
+                    variant="outline"
+                >
+                    <FiArrowLeft />
+                    Back
+                </Button>
+
+                <Button
+                    className="text-xs col-span-2 py-4 flex gap-x-0.5"
+                    variant="outline"
+                >
+                    <FiArrowRight />
+                    Continue
+                </Button>
+            </div>
         </div>
     )
 }
