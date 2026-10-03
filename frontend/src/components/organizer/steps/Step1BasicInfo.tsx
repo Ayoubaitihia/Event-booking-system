@@ -53,6 +53,7 @@ export default function Step1BasicInfo()
                         <InputGroupText className="text-xs">0/280</InputGroupText>
                     </InputGroupAddon>
                 </InputGroup>
+                lll
             </Field>
 
         </div>
