@@ -12,15 +12,16 @@ import {
   InputGroupTextarea,
 } from "@/components/ui/input-group"
 import { Input } from "@/components/ui/input"
-
+import CategoryGrid from "@/components/organizer/CategoryGrid"
+import ImageUpload from "@/components/organizer/ImageUpload"
 
 export default function Step1BasicInfo()
 {
     return(
-        <div className="border flex flex-col gap-y-4 rounded-md p-4">
+        <div className="border flex flex-col text-gray-900 gap-y-4 rounded-md p-4">
             <div>
                 <h3>Basic information</h3>
-                <p className="text-gray-900 text-xs">Tell people what your event is about</p>
+                <p className="text-xs">Tell people what your event is about</p>
             </div>
 
             <Field>
@@ -53,8 +54,19 @@ export default function Step1BasicInfo()
                         <InputGroupText className="text-xs">0/280</InputGroupText>
                     </InputGroupAddon>
                 </InputGroup>
-                lll
             </Field>
+
+            <div className="flex flex-col gap-2">
+                <span className="text-xs">Category *</span>
+
+                <CategoryGrid/>
+            </div>
+
+            <div className="flex flex-col gap-2">
+                <span className="text-xs">Category *</span>
+
+                <ImageUpload />
+            </div>
 
         </div>
     )
