@@ -11,7 +11,15 @@ import { Clock8Icon } from 'lucide-react'
 
 import { Calendar } from "@/components/ui/calendar"
 import { Field, FieldLabel } from "@/components/ui/field"
+import { Switch } from "@/components/ui/switch"
 
+import {
+  Item,
+  ItemActions,
+  ItemContent,
+  ItemDescription,
+  ItemTitle,
+} from "@/components/ui/item"
 
 import {
   InputGroup,
@@ -42,7 +50,7 @@ function formatDate(date: Date | undefined) {
 
 export default function Step2DateTime()
 {
-    
+    const [isOnlineEvent, setIsOnlineEvent] = React.useState(false)
     const [open, setOpen] = React.useState(false)
     const [value, setValue] = React.useState("In 2 days")
     const [date, setDate] = React.useState<Date | undefined>(
@@ -219,9 +227,28 @@ export default function Step2DateTime()
                 </Field>
             </div>
 
-            <div>
+            <Item variant="outline">
+                <ItemContent>
+                <ItemTitle>Online event</ItemTitle>
+                <ItemDescription className="text-xs">
+                    Add a URL instead of a physical location
+                </ItemDescription>
+                </ItemContent>
+                <ItemActions>
+                    <Switch 
+                        checked={isOnlineEvent}
+                        onCheckedChange={setIsOnlineEvent}
+                        id="airplane-mode"
+                    />
+                </ItemActions>
 
-            </div>
+                {isOnlineEvent && (<Input 
+                    id="input-demo-api-key"
+                    type="text"
+                    placeholder="https://example.com"
+                    className="outline-none text-xs placeholder:text-xs"
+                />)}
+            </Item>
 
             <Field>
                 <FieldLabel

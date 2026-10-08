@@ -14,7 +14,7 @@ const TOTAL = STEPS.length
 
 export default function EventForm()
 {
-    const [step, setStep] = useState(1)
+    const [step, setStep] = useState(4)
 
     const stepComponents: Record<number, React.ReactNode> = {
         1: <Step1BasicInfo/>,
