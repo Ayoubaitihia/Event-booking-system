@@ -11,9 +11,13 @@ import {
   InputGroupText,
   InputGroupTextarea,
 } from "@/components/ui/input-group"
+
+
 import { Input } from "@/components/ui/input"
 import CategoryGrid from "@/components/organizer/CategoryGrid"
 import ImageUpload from "@/components/organizer/ImageUpload"
+
+
 
 export default function Step1BasicInfo()
 {

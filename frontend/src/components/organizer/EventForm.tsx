@@ -31,7 +31,7 @@ export default function EventForm()
 
             <div className="grid mt-4 grid-cols-3 gap-x-2">
                 <Button
-                    className="text-xs flex py-4 gap-x-0.5"
+                    className="text-xs flex py-4 cursor-pointer gap-x-0.5"
                     variant="outline"
                 >
                     <FiArrowLeft />
@@ -39,7 +39,7 @@ export default function EventForm()
                 </Button>
 
                 <Button
-                    className="text-xs col-span-2 py-4 flex gap-x-0.5"
+                    className="text-xs hover:bg-gray-800 cursor-pointer hover:text-white bg-gray-900 text-white col-span-2 py-4 flex gap-x-0.5"
                     variant="outline"
                 >
                     <FiArrowRight />
