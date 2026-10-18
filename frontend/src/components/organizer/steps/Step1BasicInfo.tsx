@@ -1,4 +1,3 @@
-
 import {
   Field,
   FieldDescription,
@@ -12,15 +11,32 @@ import {
   InputGroupTextarea,
 } from "@/components/ui/input-group"
 
-
+import { Step1Data } from "@/lib/validations/event"
+import { step1Scheme } from "@/lib/validations/event"
+import { step1Errors } from "@/lib/validations/event"
 import { Input } from "@/components/ui/input"
 import CategoryGrid from "@/components/organizer/CategoryGrid"
 import ImageUpload from "@/components/organizer/ImageUpload"
-
-
+import { useState } from "react"
 
 export default function Step1BasicInfo()
 {
+
+    const [data, setData] = useState<Step1Data>({
+        title: "",
+        description: "",
+        category: "",
+        cover_image: null,
+    })
+
+    const [errors, setErrors] = useState<step1Errors>({})
+
+    const validate = () => {
+        const result = step1Scheme.safeParse(data)
+
+        console.log("Result", result)
+    }
+
     return(
         <div className="border flex flex-col text-gray-900 gap-y-4 rounded-md p-4">
             <div>
@@ -39,6 +55,9 @@ export default function Step1BasicInfo()
                     type="text"
                     placeholder="Event title"
                     className="outline-none"
+                    onChange={(e) => [
+                        set
+                    ]}
                     />
             </Field>
 
@@ -68,7 +87,6 @@ export default function Step1BasicInfo()
 
             <div className="flex flex-col gap-2">
                 <span className="text-xs">Cover image *</span>
-
                 <ImageUpload />
             </div>
 

@@ -91,7 +91,7 @@ export default function Step4Review()
 
             <Alert className="flex items-center">
                 <GoClock className="mb-1" />
-                <AlertDescription className="text-xs">
+                <AlertDescription className="text-xs ">
                     After submitting, an admin will review your event before it goes live.
                 </AlertDescription>
             </Alert>

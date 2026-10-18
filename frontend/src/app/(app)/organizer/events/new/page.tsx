@@ -5,8 +5,8 @@ export default function NewTicket()
 {
     return(
         <SideBar>
-            <div >
-            <EventForm/>
+            <div>
+                <EventForm/>
             </div>
         </SideBar>
     )
