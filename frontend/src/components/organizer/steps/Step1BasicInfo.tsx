@@ -53,10 +53,11 @@ export default function Step1BasicInfo()
                 <Input 
                     id="input-demo-api-key"
                     type="text"
+                    value={data.title}
                     placeholder="Event title"
                     className="outline-none"
                     onChange={(e) => [
-                        set
+                        setData(prev => ({ ...prev, title: e.target.value}))
                     ]}
                     />
             </Field>
@@ -72,6 +73,10 @@ export default function Step1BasicInfo()
                     <InputGroupTextarea
                         id="block-end-textarea"
                         placeholder="Write description..."
+                        value={data.description}
+                        onChange={(e) => {
+                            setData(prev => ({ ...prev, title: e.target.value}))
+                        }}
                     />
                     <InputGroupAddon align="block-end">
                         <InputGroupText className="text-xs">0/280</InputGroupText>
