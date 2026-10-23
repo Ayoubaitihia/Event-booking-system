@@ -26,7 +26,7 @@ export default function Step1BasicInfo()
     const [data, setData] = useState<Step1Data>({
         title: "",
         description: "",
-        // category: "",
+        category: "",
         // cover_image: null,
     })
 
@@ -97,7 +97,10 @@ export default function Step1BasicInfo()
                 <div className="flex flex-col gap-2">
                     <span className="text-xs">Category *</span>
 
-                    <CategoryGrid/>
+                    <CategoryGrid
+                        value={data.category}
+                        onChange={handleChange}
+                    />
                 </div>
 
                 <div className="flex flex-col gap-2">

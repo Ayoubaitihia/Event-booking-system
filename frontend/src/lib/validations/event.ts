@@ -9,8 +9,8 @@ export const step1Scheme = z.object({
         .min(10, "Description must be at least 10 characters")
         .max(280, "Description must be under 280 characters"),
 
-    // category: z.string()
-    //     .min(1, "Please select a category"),
+    category: z.string()
+        .min(1, "Please select a category"),
     
     // cover_image: z
     //     .instanceof(File, {message: "Image is required"})
