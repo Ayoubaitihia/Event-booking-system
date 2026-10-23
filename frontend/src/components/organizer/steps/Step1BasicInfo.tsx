@@ -27,7 +27,7 @@ export default function Step1BasicInfo()
         title: "",
         description: "",
         category: "",
-        // cover_image: null,
+        cover_image: null,
     })
 
     const [errors, setErrors] = useState<step1Errors>({})
@@ -99,13 +99,16 @@ export default function Step1BasicInfo()
 
                     <CategoryGrid
                         value={data.category}
-                        onChange={handleChange}
+                        onChange={(value) => setData({ ...data, category: value })}
                     />
                 </div>
 
                 <div className="flex flex-col gap-2">
                     <span className="text-xs">Cover image *</span>
-                    <ImageUpload />
+                    <ImageUpload
+                        value={data.cover_image}
+                        onChange={(value) => setData({ ...data, cover_image: value })}
+                    />
                 </div>
 
             </div>

@@ -12,18 +12,18 @@ export const step1Scheme = z.object({
     category: z.string()
         .min(1, "Please select a category"),
     
-    // cover_image: z
-    //     .instanceof(File, {message: "Image is required"})
-    //     .refine(
-    //         (file) => 
-    //             file == null ||
-    //             ["image/png", "image/jpeg", "image/webp"].includes(file.type),
-    //             "Only PNG, JPEG, and WebP are allowed",
-    //     )
-    //     .refine(
-    //         (file) => file.size <= 5 * 1024 * 1024,
-    //         "Image must be smaller than 5 MB"
-    //     )
+    cover_image: z
+        .instanceof(File, {message: "Image is required"})
+        .refine(
+            (file) => 
+                file == null ||
+                ["image/png", "image/jpeg", "image/webp"].includes(file.type),
+                "Only PNG, JPEG, and WebP are allowed",
+        )
+        .refine(
+            (file) => file.size <= 5 * 1024 * 1024,
+            "Image must be smaller than 5 MB"
+        )
 })
 
 export type Step1Data = z.infer<typeof step1Scheme>

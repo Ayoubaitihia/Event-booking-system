@@ -7,10 +7,18 @@ import {
   EmptyMedia,
   EmptyTitle,
 } from "@/components/ui/empty"
+import Image from "next/image";
 
 import { FiUploadCloud } from "react-icons/fi";
 
-export default function ImageUpload()
+
+interface Props {
+    value: string,
+    onChange: (file: File | null) => void
+}
+
+
+export default function ImageUpload({value, onChange}: Props)
 {
     return(
 
@@ -24,9 +32,10 @@ export default function ImageUpload()
             </EmptyDescription>
         </EmptyHeader>
         <EmptyContent>
-            <Button variant="outline" size="sm">
-            Upload Files
-            </Button>
+            <input
+                type="file"
+                onChange={() => onChange(e)}
+            />
         </EmptyContent>
     </Empty>
     )

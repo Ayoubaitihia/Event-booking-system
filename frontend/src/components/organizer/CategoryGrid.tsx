@@ -19,8 +19,8 @@ export default function CategoryGrid({value, onChange}: Props)
                     <button
                         key={id}
                         onClick={() => onChange(slug)}
-                        className={`border rounded-md py-3 flex flex-col items-center gap-y-2 
-                            ${value === slug ? "border-blue-500 bg-blue-500" : ""}`}
+                        className={`border cursor-pointer rounded-md py-3 flex flex-col items-center gap-y-2 
+                            ${isSelected ? "border-blue-900 bg-blue-50" : ""}`}
                     >
                         <Icon />
                         <span className="text-xs">{name}</span>
