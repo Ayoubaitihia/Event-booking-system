@@ -34,6 +34,7 @@ export default function ImageUpload({value, onChange}: Props)
         <EmptyContent>
             <input
                 type="file"
+                className="hiden"
                 onChange={() => onChange(e)}
             />
         </EmptyContent>
