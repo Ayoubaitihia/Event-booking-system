@@ -37,6 +37,7 @@ export default function Step1BasicInfo()
 
         if (result.success)
             console.log("Result Data", result.data)
+            // print(URL.createObjectURL(data.cover_image))
         else
             console.log("Result Error", result.error)
     }
@@ -107,10 +108,11 @@ export default function Step1BasicInfo()
                     <span className="text-xs">Cover image *</span>
                     <ImageUpload
                         value={data.cover_image}
-                        onChange={(value) => setData({ ...data, cover_image: value })}
+                        onChange={
+                            (file) => setData({ ...data, cover_image: file 
+                        })}
                     />
                 </div>
-
             </div>
 
             <Button
