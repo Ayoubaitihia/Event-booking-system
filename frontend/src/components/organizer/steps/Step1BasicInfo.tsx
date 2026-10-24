@@ -20,34 +20,40 @@ import ImageUpload from "@/components/organizer/ImageUpload"
 import { useState } from "react"
 import { Button } from "@/components/ui/button"
 
-export default function Step1BasicInfo()
+interface Props {
+    data: Step1Data,
+    onChange: (key: keyof Step1Data, value: string | File | null) => void
+    errors: step1Errors
+}
+
+
+export default function Step1BasicInfo({data, onChange, errors}: Props)
 {
 
-    const [data, setData] = useState<Step1Data>({
-        title: "",
-        description: "",
-        category: "",
-        cover_image: null,
-    })
+    // const [data, setData] = useState<Step1Data>({
+    //     title: "",
+    //     description: "",
+    //     category: "",
+    //     cover_image: null,
+    // })
 
-    const [errors, setErrors] = useState<step1Errors>({})
+    // const [errors, setErrors] = useState<step1Errors>({})
 
-    const validate = () => {
-        const result = step1Scheme.safeParse(data)
+    // const validate = () => {
+    //     const result = step1Scheme.safeParse(data)
 
-        if (result.success)
-            console.log("Result Data", result.data)
-            // print(URL.createObjectURL(data.cover_image))
-        else
-            console.log("Result Error", result.error)
-    }
+    //     if (result.success)
+    //         console.log("Result Data", result.data)
+    //     else
+    //         console.log("Result Error", result.error)
+    // }
 
-    const handleChange = (e) =>{
-        setData({
-            ...data,
-            [e.target.name]: e.target.value
-        })
-    }
+    // const handleChange = (e) =>{
+    //     setData({
+    //         ...data,
+    //         [e.target.name]: e.target.value
+    //     })
+    // }
 
     return(
         <div>
@@ -68,7 +74,7 @@ export default function Step1BasicInfo()
                         name="title"
                         type="text"
                         value={data.title}
-                        onChange={handleChange}
+                        onChange={(e) => onChange("title", e.target.value)}
                         placeholder="Event title"
                         className="outline-none"
                         />
@@ -87,10 +93,10 @@ export default function Step1BasicInfo()
                             name="description"
                             placeholder="Write description..."
                             value={data.description}
-                            onChange={handleChange}
+                            onChange={(e) => onChange("description", e.target.value)}
                         />
                         <InputGroupAddon align="block-end">
-                            <InputGroupText className="text-xs">0/280</InputGroupText>
+                            <InputGroupText className="text-xs">{data.description.length}/280</InputGroupText>
                         </InputGroupAddon>
                     </InputGroup>
                 </Field>
@@ -100,7 +106,7 @@ export default function Step1BasicInfo()
 
                     <CategoryGrid
                         value={data.category}
-                        onChange={(value) => setData({ ...data, category: value })}
+                        onChange={(slug) => onChange("category", slug)}
                     />
                 </div>
 
@@ -108,17 +114,10 @@ export default function Step1BasicInfo()
                     <span className="text-xs">Cover image *</span>
                     <ImageUpload
                         value={data.cover_image}
-                        onChange={
-                            (file) => setData({ ...data, cover_image: file 
-                        })}
+                        onChange={(file) => onChange("cover_image", file)}
                     />
                 </div>
             </div>
-
-            <Button
-                onClick={() => validate()}
-            >Next
-            </Button>
         </div>
     )
 }

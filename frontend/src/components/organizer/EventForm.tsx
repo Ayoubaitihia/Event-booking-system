@@ -9,6 +9,9 @@ import Step4BasicInfo from "./steps/Step4Review";
 import { FiSend } from "react-icons/fi";
 import { Button } from "@/components/ui/button"
 import { FiArrowRight, FiArrowLeft } from "react-icons/fi";
+import { Step1Data } from "@/lib/validations/event"
+import { step1Scheme } from "@/lib/validations/event"
+import { step1Errors } from "@/lib/validations/event"
 
 const STEPS = ["Basics info", "Data & location", "Tickets", "Review"]
 const TOTAL = STEPS.length
@@ -17,8 +20,25 @@ export default function EventForm()
 {
     const [step, setStep] = useState(1)
 
+    const [data, setData] = useState<Step1Data>({
+        title: "",
+        description: "",
+        category: "",
+        cover_image: null,
+    })
+
+    const [errors, setErrors] = useState<step1Errors>({})
+
+    const onChange = (key: keyof Step1Data, value: string | File | null) =>{
+        setData(prev => ({ ...prev, [key]: value}))
+    }
+
     const stepComponents: Record<number, React.ReactNode> = {
-        1: <Step1BasicInfo/>,
+        1: <Step1BasicInfo
+            data={data}
+            onChange={onChange}
+            errors={errors}
+        />,
         2: <Step2BasicInfo/>,
         3: <Step3BasicInfo/>,
         4: <Step4BasicInfo/>
@@ -42,6 +62,26 @@ export default function EventForm()
         }
     }
 
+    const validate = () =>{
+        const result = step1Scheme.safeParse(data)
+
+        if (!result.success){
+            const fieldErrors = {}
+            console.log("Error", result.error)
+            return false
+        }
+
+        console.log("Data", result.data)
+        setErrors({})
+        return true
+    }
+
+    const handleNext = () => {
+        if(validate()){
+            setStep(s => s + 1)
+        }
+    }
+
     return(
         <div className="max-w-3xl">
             <FormStepper step={step} steps={STEPS} />
@@ -59,7 +99,7 @@ export default function EventForm()
                 </Button>}
 
                 {step < steps_length && step > 1 && <Button
-                    onClick={() => handle_nextStep(step)}
+                    onClick={() => handleNext()}
                     className="text-xs hover:bg-gray-800 cursor-pointer hover:text-white bg-gray-900 text-white col-span-2 py-4 flex gap-x-0.5"
                     variant="outline"
                 >
@@ -68,7 +108,7 @@ export default function EventForm()
                 </Button>}
 
                 {step == steps_length && <Button
-                    onClick={() => handle_nextStep(step)}
+                    onClick={() => handleNext()}
                     className="text-xs hover:bg-gray-800 cursor-pointer hover:text-white bg-gray-900 text-white col-span-2 py-4 flex gap-x-0.5"
                     variant="outline"
                 >
@@ -78,7 +118,7 @@ export default function EventForm()
             </div>
 
             {step == 1 && <Button
-                onClick={() => handle_nextStep(step)}
+                onClick={() => handleNext()}
                 className="text-xs w-full hover:bg-gray-800 cursor-pointer hover:text-white bg-gray-900 text-white col-span-2 py-4 flex gap-x-0.5"
                 variant="outline"
             >
