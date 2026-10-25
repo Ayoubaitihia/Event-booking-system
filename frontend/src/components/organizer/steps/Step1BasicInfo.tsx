@@ -29,32 +29,6 @@ interface Props {
 
 export default function Step1BasicInfo({data, onChange, errors}: Props)
 {
-
-    // const [data, setData] = useState<Step1Data>({
-    //     title: "",
-    //     description: "",
-    //     category: "",
-    //     cover_image: null,
-    // })
-
-    // const [errors, setErrors] = useState<step1Errors>({})
-
-    // const validate = () => {
-    //     const result = step1Scheme.safeParse(data)
-
-    //     if (result.success)
-    //         console.log("Result Data", result.data)
-    //     else
-    //         console.log("Result Error", result.error)
-    // }
-
-    // const handleChange = (e) =>{
-    //     setData({
-    //         ...data,
-    //         [e.target.name]: e.target.value
-    //     })
-    // }
-
     return(
         <div>
             <div className="border flex flex-col text-gray-900 gap-y-4 rounded-md p-4">
@@ -79,6 +53,9 @@ export default function Step1BasicInfo({data, onChange, errors}: Props)
                         className="outline-none"
                         />
                 </Field>
+                {errors.title?.[0] && (
+                    <span>{errors.title[0]}</span>
+                )}
 
 
                 <Field>
@@ -100,6 +77,9 @@ export default function Step1BasicInfo({data, onChange, errors}: Props)
                         </InputGroupAddon>
                     </InputGroup>
                 </Field>
+                {errors.description?.[0] && (
+                    <span>{errors.description[0]}</span>
+                )}
 
                 <div className="flex flex-col gap-2">
                     <span className="text-xs">Category *</span>
@@ -109,6 +89,9 @@ export default function Step1BasicInfo({data, onChange, errors}: Props)
                         onChange={(slug) => onChange("category", slug)}
                     />
                 </div>
+                {errors.category?.[0] && (
+                    <span>{errors.category[0]}</span>
+                )}
 
                 <div className="flex flex-col gap-2">
                     <span className="text-xs">Cover image *</span>
@@ -117,6 +100,10 @@ export default function Step1BasicInfo({data, onChange, errors}: Props)
                         onChange={(file) => onChange("cover_image", file)}
                     />
                 </div>
+                {errors.cover_image?.[0] && (
+                    <span>{errors.cover_image[0]}</span>
+                )}
+
             </div>
         </div>
     )

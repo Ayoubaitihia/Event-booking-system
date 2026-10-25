@@ -1,5 +1,6 @@
 "use client"
 
+import {z} from "zod"
 import { useState } from "react";
 import FormStepper from "./FormStepper";
 import Step1BasicInfo from "./steps/Step1BasicInfo";
@@ -18,7 +19,7 @@ const TOTAL = STEPS.length
 
 export default function EventForm()
 {
-    const [step, setStep] = useState(1)
+    const [step, setStep] = useState(2)
 
     const [data, setData] = useState<Step1Data>({
         title: "",
@@ -66,8 +67,11 @@ export default function EventForm()
         const result = step1Scheme.safeParse(data)
 
         if (!result.success){
-            const fieldErrors = {}
-            console.log("Error", result.error)
+            console.log("Error", z.flattenError(result.error).fieldErrors)
+            const fieldErrors = z.flattenError(result.error).fieldErrors
+
+            setErrors(fieldErrors)
+            
             return false
         }
 

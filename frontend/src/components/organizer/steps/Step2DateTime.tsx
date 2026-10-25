@@ -52,10 +52,15 @@ export default function Step2DateTime()
 {
     const [isOnlineEvent, setIsOnlineEvent] = React.useState(false)
     const [open, setOpen] = React.useState(false)
-    const [value, setValue] = React.useState("In 2 days")
+    const [value, setValue] = React.useState("In 3 days")
     const [date, setDate] = React.useState<Date | undefined>(
         chrono.parseDate(value) || undefined
     )
+
+    const submit = () => {
+        console.log("Value:", value)
+        console.log("Date:", date)
+    }
 
     return(
         <div className="border flex flex-col text-gray-900 gap-y-4 rounded-md p-4">
@@ -65,9 +70,8 @@ export default function Step2DateTime()
                 <p className="text-xs">When and where is your event taking place?</p>
             </div>
 
-
             <div className="grid gap-4 grid-cols-2">
-                <Field>
+                {/* <Field>
                     <FieldLabel
                         className="text-xs"
                         htmlFor="input-demo-api-key">
@@ -87,9 +91,11 @@ export default function Step2DateTime()
                                 const parsedDate = chrono.parseDate(newValue)
 
                                 if (parsedDate) {
-                                    setDate(parsedDate)
+                                    const dateOnly = parsedDate.toISOString().split("T")[0]
+                                    setDate(dateOnly)
                                 }
                             }}
+
                             onKeyDown={(e) => {
                                 if (e.key === "ArrowDown") {
                                     e.preventDefault()
@@ -134,9 +140,9 @@ export default function Step2DateTime()
                     </Popover>
                     </InputGroupAddon>
                     </InputGroup>
-                </Field>
+                </Field> */}
 
-                <Field>
+                {/* <Field>
                     <FieldLabel
                         className="text-xs"
                         htmlFor="input-demo-api-key">
@@ -224,7 +230,7 @@ export default function Step2DateTime()
                     </Popover>
                     </InputGroupAddon>
                     </InputGroup>
-                </Field>
+                </Field> */}
             </div>
 
             <Item variant="outline">
@@ -277,6 +283,12 @@ export default function Step2DateTime()
                     className="outline-none"
                     />
             </Field>
+
+            <button
+            onClick={() => submit()}
+            >
+                Submit
+            </button>
 
         </div>
     )
