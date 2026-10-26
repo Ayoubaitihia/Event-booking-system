@@ -1,15 +1,9 @@
 "use client"
 
 import * as React from "react"
-import * as chrono from "chrono-node"
-import { CalendarIcon } from "lucide-react"
-
-import { Input } from '@/components/ui/input'
-import { Label } from '@/components/ui/label'
 import { Clock8Icon } from 'lucide-react'
 
-
-import { Calendar } from "@/components/ui/calendar"
+import { Input } from '@/components/ui/input'
 import { Field, FieldLabel } from "@/components/ui/field"
 import { Switch } from "@/components/ui/switch"
 
@@ -21,45 +15,32 @@ import {
   ItemTitle,
 } from "@/components/ui/item"
 
-import {
-  InputGroup,
-  InputGroupAddon,
-  InputGroupButton,
-  InputGroupInput,
-} from "@/components/ui/input-group"
-
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover"
+import DateTimePicker from "../DateTimePicker"
+import TimePicker from "../TimePicker"
+import { Step2Data, step2Errors } from "@/lib/validations/event"
 
 
-function formatDate(date: Date | undefined) {
-    
-    if (!date) {
-        return ""
-    }
-
-    return date.toLocaleDateString("en-US", {
-        day: "2-digit",
-        month: "long",
-        year: "numeric",
-    })
+interface Props {
+    data: Step2Data,
+    onChange: (key: keyof Step2Data, value: string | File | boolean | null) => void
+    errors: step2Errors
 }
 
-export default function Step2DateTime()
+export default function Step2DateTime({data, onChange, errors}: Props)
 {
     const [isOnlineEvent, setIsOnlineEvent] = React.useState(false)
-    const [open, setOpen] = React.useState(false)
-    const [value, setValue] = React.useState("In 3 days")
-    const [date, setDate] = React.useState<Date | undefined>(
-        chrono.parseDate(value) || undefined
-    )
 
-    const submit = () => {
-        console.log("Value:", value)
-        console.log("Date:", date)
+    const handleOnlineEvent = () =>{
+        setIsOnlineEvent(!isOnlineEvent)
+        onChange("is_online", !isOnlineEvent)
+    }
+
+    const submit = () => {!
+        console.log("is online:", data.is_online)
+        console.log("URL online:", data.online_url)
+        console.log("venue name:", data.venue_name)
+        console.log("address:", data.address)
+        console.log("submitted")
     }
 
     return(
@@ -71,166 +52,22 @@ export default function Step2DateTime()
             </div>
 
             <div className="grid gap-4 grid-cols-2">
-                {/* <Field>
-                    <FieldLabel
-                        className="text-xs"
-                        htmlFor="input-demo-api-key">
-                            Start date *
-                    </FieldLabel>
-                    <InputGroup>
-                        <InputGroupInput
-                            id="date-optional"
-                            value={value}
-                            placeholder="Tomorrow or next week"
-                            onChange={(e) => {
-                                
-                                const newValue = e.target.value
-
-                                setValue(newValue)
-
-                                const parsedDate = chrono.parseDate(newValue)
-
-                                if (parsedDate) {
-                                    const dateOnly = parsedDate.toISOString().split("T")[0]
-                                    setDate(dateOnly)
-                                }
-                            }}
-
-                            onKeyDown={(e) => {
-                                if (e.key === "ArrowDown") {
-                                    e.preventDefault()
-                                    setOpen(true)
-                                }
-                            }}
-                        />
-                    <InputGroupAddon align="inline-end">
-                    <Popover open={open} onOpenChange={setOpen}>
-                        
-                        <PopoverTrigger asChild>
-                            <InputGroupButton
-                                id="date-picker"
-                                variant="ghost"
-                                size="icon-xs"
-                                aria-label="Select date"
-                            >
-                            <CalendarIcon />
-                                <span className="sr-only">
-                                Select date
-                                </span>
-                            </InputGroupButton>
-                        </PopoverTrigger>
-
-                        <PopoverContent
-                        className="w-auto overflow-hidden p-0"
-                        align="end"
-                        sideOffset={8}
-                        >
-                        <Calendar
-                            mode="single"
-                            selected={date}
-                            captionLayout="dropdown"
-                            defaultMonth={date}
-                            onSelect={(date) => {
-                            setDate(date)
-                            setValue(formatDate(date))
-                            setOpen(false)
-                            }}
-                        />
-                        </PopoverContent>
-                    </Popover>
-                    </InputGroupAddon>
-                    </InputGroup>
-                </Field> */}
-
-                {/* <Field>
-                    <FieldLabel
-                        className="text-xs"
-                        htmlFor="input-demo-api-key">
-                            Start time *
-                    </FieldLabel>
-                    <div className='relative'>
-                        <div className='text-muted-foreground pointer-events-none absolute inset-y-0 left-0 flex items-center justify-center pl-3 peer-disabled:opacity-50'>
-                        <Clock8Icon className='size-4' />
-                        <span className='sr-only'>User</span>
-                        </div>
-                            <Input
-                            type='time'
-                            id='time-picker'
-                            step='1'
-                            defaultValue='08:30'
-                            className='peer bg-background appearance-none pl-9 [&::-webkit-calendar-picker-indicator]:hidden [&::-webkit-calendar-picker-indicator]:appearance-none'
-                            />
-                    </div>
-                </Field>
-
-                <Field>
-                    <FieldLabel
-                        className="text-xs"
-                        htmlFor="input-demo-api-key">
-                            End date *
-                    </FieldLabel>
-                    <InputGroup>
-                        <InputGroupInput
-                            id="date-optional"
-                            value={value}
-                            placeholder="Tomorrow or next week"
-                            onChange={(e) => {
-                                
-                                const newValue = e.target.value
-
-                                setValue(newValue)
-
-                                const parsedDate = chrono.parseDate(newValue)
-
-                                if (parsedDate) {
-                                    setDate(parsedDate)
-                                }
-                            }}
-                            onKeyDown={(e) => {
-                                if (e.key === "ArrowDown") {
-                                    e.preventDefault()
-                                    setOpen(true)
-                                }
-                            }}
-                        />
-                    <InputGroupAddon align="inline-end">
-                    <Popover open={open} onOpenChange={setOpen}>
-                        
-                        <PopoverTrigger asChild>
-                            <InputGroupButton
-                                id="date-picker"
-                                variant="ghost"
-                                size="icon-xs"
-                                aria-label="Select date"
-                            >
-                            <CalendarIcon />
-                                <span className="sr-only">
-                                Select date
-                                </span>
-                            </InputGroupButton>
-                        </PopoverTrigger>
-
-                        <PopoverContent
-                        className="w-auto overflow-hidden p-0"
-                        align="end"
-                        sideOffset={8}
-                        >
-                        <Calendar
-                            mode="single"
-                            selected={date}
-                            captionLayout="dropdown"
-                            defaultMonth={date}
-                            onSelect={(date) => {
-                            setDate(date)
-                            setValue(formatDate(date))
-                            setOpen(false)
-                            }}
-                        />
-                        </PopoverContent>
-                    </Popover>
-                    </InputGroupAddon>
-                    </InputGroup>
-                </Field> */}
+                <DateTimePicker
+                    onChange={onChange}
+                    label="Start date *"
+                />
+                <TimePicker
+                    onChange={onChange}
+                    label="Start time *"
+                />
+                <DateTimePicker 
+                    onChange={onChange}
+                    label="End date *"
+                />
+                <TimePicker
+                    onChange={onChange}
+                    label="End time *"
+                />
             </div>
 
             <Item variant="outline">
@@ -243,7 +80,7 @@ export default function Step2DateTime()
                 <ItemActions>
                     <Switch 
                         checked={isOnlineEvent}
-                        onCheckedChange={setIsOnlineEvent}
+                        onCheckedChange={handleOnlineEvent}
                         id="airplane-mode"
                     />
                 </ItemActions>
@@ -251,11 +88,13 @@ export default function Step2DateTime()
                 {isOnlineEvent && (<Input 
                     id="input-demo-api-key"
                     type="text"
+                    onChange={(e) => onChange("online_url", e.target.value)}
                     placeholder="https://example.com"
                     className="outline-none text-xs placeholder:text-xs"
                 />)}
             </Item>
 
+            {isOnlineEvent && (
             <Field>
                 <FieldLabel
                     className="text-xs"
@@ -265,11 +104,14 @@ export default function Step2DateTime()
                 <Input 
                     id="input-demo-api-key"
                     type="text"
+                    onChange={(e) => onChange("venue_name", e.target.value)}
                     placeholder="Venue name"
                     className="outline-none"
                     />
             </Field>
+            )}
 
+            {isOnlineEvent && (
             <Field>
                 <FieldLabel
                     className="text-xs"
@@ -279,10 +121,12 @@ export default function Step2DateTime()
                 <Input 
                     id="input-demo-api-key"
                     type="text"
+                    onChange={(e) => onChange("address", e.target.value)}
                     placeholder="Address"
                     className="outline-none"
                     />
             </Field>
+            )}
 
             <button
             onClick={() => submit()}

@@ -22,10 +22,18 @@ export default function EventForm()
     const [step, setStep] = useState(2)
 
     const [data, setData] = useState<Step1Data>({
+
         title: "",
         description: "",
         category: "",
         cover_image: null,
+
+        starts_at: "",
+        ends_at: "",
+        is_online: false,
+        online_url: "",
+        venue_name: "",
+        address: "",
     })
 
     const [errors, setErrors] = useState<step1Errors>({})
@@ -40,7 +48,11 @@ export default function EventForm()
             onChange={onChange}
             errors={errors}
         />,
-        2: <Step2BasicInfo/>,
+        2: <Step2BasicInfo
+            data={data}
+            onChange={onChange}
+            errors={errors}
+        />,
         3: <Step3BasicInfo/>,
         4: <Step4BasicInfo/>
     }

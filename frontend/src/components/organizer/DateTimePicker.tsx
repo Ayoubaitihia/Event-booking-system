@@ -6,7 +6,6 @@ import { CalendarIcon } from "lucide-react"
 
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
-import { Clock8Icon } from 'lucide-react'
 
 
 import { Calendar } from "@/components/ui/calendar"
@@ -34,15 +33,36 @@ import {
     PopoverTrigger,
   } from "@/components/ui/popover"
 
+  import { Step2Data, step2Errors } from "@/lib/validations/event"
 
-export default function DateTimePicker()
+
+function formatDate(date: Date | undefined) {
+    if (!date) return ""
+    return date.toLocaleDateString("en-US", {
+        day: "2-digit",
+        month: "long",
+        year: "numeric",
+    })
+}
+
+interface DateTimePickerProps {
+    label: string,
+    onChange: (key: keyof Step2Data, value: string | File | boolean | null) => void
+    errors: step2Errors
+}
+
+export default function DateTimePicker({ label }: DateTimePickerProps)
 {
+    const [open, setOpen] = React.useState(false)
+    const [value, setValue] = React.useState("")
+    const [date, setDate] = React.useState<Date | undefined>(undefined)
+
     return(
         <Field>
             <FieldLabel
                 className="text-xs"
                 htmlFor="input-demo-api-key">
-                    Start date *
+                    {label}
             </FieldLabel>
             <InputGroup>
                 <InputGroupInput
@@ -58,8 +78,7 @@ export default function DateTimePicker()
                         const parsedDate = chrono.parseDate(newValue)
 
                         if (parsedDate) {
-                            const dateOnly = parsedDate.toISOString().split("T")[0]
-                            setDate(dateOnly)
+                            setDate(parsedDate)
                         }
                     }}
 
