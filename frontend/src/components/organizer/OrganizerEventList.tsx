@@ -39,7 +39,7 @@ export default function OrganizerEventList(){
                 <div className="flex flex-col gap-y-2 mt-2">
                     {
                         STATIC_EVENTS.map((event) => (
-                            <OrganizerEventCard event={event}/>
+                            <OrganizerEventCard key={event.id} event={event}/>
                         ))
                     }
                 </div>
