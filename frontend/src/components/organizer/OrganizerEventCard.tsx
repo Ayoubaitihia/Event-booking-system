@@ -5,7 +5,12 @@ import { SlOptions } from "react-icons/sl";
 import { MdOutlineLaptop } from "react-icons/md";
 import BookingProgressBar from "@/components/organizer/BookingProgressBar"
 
-export default function OrganizerEventCard(){
+
+interface{
+    
+}
+
+export default function OrganizerEventCard({}){
     return (
             <div className="border rounded-xl p-3 flex flex-col gap-y-2">
                 <div className="flex items-center gap-x-3">

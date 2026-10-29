@@ -37,6 +37,7 @@ export default function EventForm()
         is_free: false,
         price: 0,
         capacity: 100,
+        max_per_order: 10,
     })
 
     const [errors, setErrors] = useState<FormErrors>({})
