@@ -1,7 +1,6 @@
 "use client"
 
 import * as React from "react"
-import { Clock8Icon } from 'lucide-react'
 
 import { Input } from '@/components/ui/input'
 import { Field, FieldLabel } from "@/components/ui/field"
@@ -17,34 +16,21 @@ import {
 
 import DateTimePicker from "../DateTimePicker"
 import TimePicker from "../TimePicker"
-import { Step2Data, step2Errors } from "@/lib/validations/event"
+import { Step2Data, FormErrors } from "@/lib/validations/event"
 
 
 interface Props {
-    data: Step2Data,
     onChange: (key: keyof Step2Data, value: string | File | boolean | null) => void
-    errors: step2Errors
+    errors: FormErrors
 }
 
-export default function Step2DateTime({data, onChange, errors}: Props)
+export default function Step2DateTime({onChange, errors}: Props)
 {
     const [isOnlineEvent, setIsOnlineEvent] = React.useState(false)
 
     const handleOnlineEvent = () =>{
         setIsOnlineEvent(!isOnlineEvent)
         onChange("is_online", !isOnlineEvent)
-    }
-
-    const submit = () => {
-        console.log("Start at:", data.starts_at)
-        console.log("Starts_at_time:", data.starts_at_time)
-        console.log("Ends_at:", data.ends_at)
-        console.log("Ends_at_time:", data.ends_at_time)
-        console.log("is online:", data.is_online)
-        console.log("URL online:", data.online_url)
-        console.log("venue name:", data.venue_name)
-        console.log("address:", data.address)
-        console.log("=== submitted ===")
     }
 
     return(
@@ -56,26 +42,38 @@ export default function Step2DateTime({data, onChange, errors}: Props)
             </div>
 
             <div className="grid gap-4 grid-cols-2">
-                <DateTimePicker
-                    onChange={onChange}
-                    fieldKey="starts_at"
-                    label="Start date *"
-                />
-                <TimePicker
-                    onChange={onChange}
-                    fieldKey="starts_at_time"
-                    label="Start time *"
-                />
-                <DateTimePicker
-                    onChange={onChange}
-                    fieldKey="ends_at"
-                    label="End date *"
-                />
-                <TimePicker
-                    onChange={onChange}
-                    fieldKey="ends_at_time"
-                    label="End time *"
-                />
+                <div>
+                    <DateTimePicker
+                        onChange={onChange}
+                        fieldKey="starts_at"
+                        label="Start date *"
+                    />
+                    {errors.starts_at && <span className="text-xs text-red-500">{errors.starts_at}</span>}
+                </div>
+                <div>
+                    <TimePicker
+                        onChange={onChange}
+                        fieldKey="starts_at_time"
+                        label="Start time *"
+                    />
+                    {errors.starts_at_time && <span className="text-xs text-red-500">{errors.starts_at_time}</span>}
+                </div>
+                <div>
+                    <DateTimePicker
+                        onChange={onChange}
+                        fieldKey="ends_at"
+                        label="End date *"
+                    />
+                    {errors.ends_at && <span className="text-xs text-red-500">{errors.ends_at}</span>}
+                </div>
+                <div>
+                    <TimePicker
+                        onChange={onChange}
+                        fieldKey="ends_at_time"
+                        label="End time *"
+                    />
+                    {errors.ends_at_time && <span className="text-xs text-red-500">{errors.ends_at_time}</span>}
+                </div>
             </div>
 
             <Item variant="outline">
@@ -86,61 +84,53 @@ export default function Step2DateTime({data, onChange, errors}: Props)
                 </ItemDescription>
                 </ItemContent>
                 <ItemActions>
-                    <Switch 
+                    <Switch
                         checked={isOnlineEvent}
                         onCheckedChange={handleOnlineEvent}
-                        id="airplane-mode"
+                        id="online-event"
                     />
                 </ItemActions>
 
-                {isOnlineEvent && (<Input 
-                    id="input-demo-api-key"
+                {isOnlineEvent && (<Input
                     type="text"
                     onChange={(e) => onChange("online_url", e.target.value)}
                     placeholder="https://example.com"
                     className="outline-none text-xs placeholder:text-xs"
                 />)}
             </Item>
+            {errors.online_url && <span className="text-xs text-red-500">{errors.online_url}</span>}
 
-            {isOnlineEvent && (
+            {!isOnlineEvent && (
             <Field>
-                <FieldLabel
-                    className="text-xs"
-                    htmlFor="input-demo-api-key">
-                        Venue name *
+                <FieldLabel className="text-xs" htmlFor="venue_name">
+                    Venue name *
                 </FieldLabel>
-                <Input 
-                    id="input-demo-api-key"
+                <Input
+                    id="venue_name"
                     type="text"
                     onChange={(e) => onChange("venue_name", e.target.value)}
                     placeholder="Venue name"
                     className="outline-none"
-                    />
+                />
+                {errors.venue_name && <span className="text-xs text-red-500">{errors.venue_name}</span>}
             </Field>
             )}
 
-            {isOnlineEvent && (
+            {!isOnlineEvent && (
             <Field>
-                <FieldLabel
-                    className="text-xs"
-                    htmlFor="input-demo-api-key">
-                        Address *
+                <FieldLabel className="text-xs" htmlFor="address">
+                    Address *
                 </FieldLabel>
-                <Input 
-                    id="input-demo-api-key"
+                <Input
+                    id="address"
                     type="text"
                     onChange={(e) => onChange("address", e.target.value)}
                     placeholder="Address"
                     className="outline-none"
-                    />
+                />
+                {errors.address && <span className="text-xs text-red-500">{errors.address}</span>}
             </Field>
             )}
-
-            <button
-                onClick={() => submit()}
-            >
-                Submit
-            </button>
 
         </div>
     )

@@ -5,7 +5,7 @@ export default function NewTicket()
 {
     return(
         <SideBar>
-            <div>
+            <div className="flex items-center justify-center">
                 <EventForm/>
             </div>
         </SideBar>

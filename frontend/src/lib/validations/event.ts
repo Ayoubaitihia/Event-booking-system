@@ -14,16 +14,18 @@ export const step1Scheme = z.object({
     
     cover_image: z
         .instanceof(File, {message: "Image is required"})
+        .nullable()
         .refine(
-            (file) => 
+            (file) =>
                 file == null ||
                 ["image/png", "image/jpeg", "image/webp"].includes(file.type),
                 "Only PNG, JPEG, and WebP are allowed",
         )
         .refine(
-            (file) => file.size <= 5 * 1024 * 1024,
+            (file) => file == null || file.size <= 5 * 1024 * 1024,
             "Image must be smaller than 5 MB"
         )
+        .refine((file) => file !== null, "Image is required")
 })
 
 
@@ -47,13 +49,6 @@ export const step2Scheme = z.object({
     address: z.string()
 
 })
-// .refine(
-//     (data) => !data.starts_at || !data.ends_at || data.starts_at <= data.ends_at,
-//     {
-//         message: "End time must be after start time",
-//         path: ["ends_at"]
-//     }
-// )
 .refine(
     (data) => !data.is_online || !!data.online_url?.trim(),
     {
@@ -62,14 +57,14 @@ export const step2Scheme = z.object({
     }
 )
 .refine(
-    (data) => !data.is_online || data.venue_name.trim().length > 0,
+    (data) => data.is_online || data.venue_name.trim().length > 0,
     {
         message: "Venue name is required for in-person events",
         path: ["venue_name"]
     }
 )
 .refine(
-    (data) => !data.is_online || data.address.trim().length > 0,
+    (data) => data.is_online || data.address.trim().length > 0,
     {
         message: "Address is required for in-person events",
         path: ["address"]
@@ -81,7 +76,7 @@ export const step2Scheme = z.object({
         if (data.starts_at > data.ends_at)
             return false
 
-        if ((data.starts_at == data.ends_at) && (data.starts_at_time > data.ends_at_time)){
+        if ((data.starts_at == data.ends_at) && (data.starts_at_time >= data.ends_at_time)){
             return false
         }
 
@@ -94,8 +89,33 @@ export const step2Scheme = z.object({
 
 
 
+export const step3Scheme = z.object({
+    is_free: z.boolean(),
+    price: z.number()
+        .min(0, "Price cannot be negative")
+        .nullable(),
+    capacity: z.number()
+        .min(1, "Capacity must be at least 1")
+        .nullable(),
+})
+.refine(
+    (data) => data.capacity !== null,
+    { message: "Capacity is required", path: ["capacity"] }
+)
+.refine(
+    (data) => data.is_free || (data.price !== null && data.price > 0),
+    { message: "Price is required for paid events", path: ["price"] }
+)
+
+
+
 export type Step1Data = z.infer<typeof step1Scheme>
 export type Step2Data = z.infer<typeof step2Scheme>
+export type Step3Data = z.infer<typeof step3Scheme>
 
 export type step1Errors = Partial<Record<keyof Step1Data, string>>
 export type step2Errors = Partial<Record<keyof Step2Data, string>>
+export type step3Errors = Partial<Record<keyof Step3Data, string>>
+
+export type AllFields = Step1Data & Step2Data & Step3Data
+export type FormErrors = Partial<Record<keyof AllFields, string>>

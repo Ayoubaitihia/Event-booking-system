@@ -1,31 +1,24 @@
 import {
   Field,
-  FieldDescription,
   FieldLabel,
 } from "@/components/ui/field"
 import {
   InputGroup,
   InputGroupAddon,
-  InputGroupButton,
   InputGroupText,
   InputGroupTextarea,
 } from "@/components/ui/input-group"
 
-import { Step1Data } from "@/lib/validations/event"
-import { step1Scheme } from "@/lib/validations/event"
-import { step1Errors } from "@/lib/validations/event"
+import { Step1Data, FormErrors } from "@/lib/validations/event"
 import { Input } from "@/components/ui/input"
 import CategoryGrid from "@/components/organizer/CategoryGrid"
 import ImageUpload from "@/components/organizer/ImageUpload"
-import { useState } from "react"
-import { Button } from "@/components/ui/button"
 
 interface Props {
     data: Step1Data,
     onChange: (key: keyof Step1Data, value: string | File | null) => void
-    errors: step1Errors
+    errors: FormErrors
 }
-
 
 export default function Step1BasicInfo({data, onChange, errors}: Props)
 {
@@ -38,12 +31,10 @@ export default function Step1BasicInfo({data, onChange, errors}: Props)
                 </div>
 
                 <Field>
-                    <FieldLabel
-                        className="text-xs"
-                        htmlFor="input-demo-api-key">
-                            Event title *
+                    <FieldLabel className="text-xs" htmlFor="title">
+                        Event title *
                     </FieldLabel>
-                    <Input 
+                    <Input
                         id="title"
                         name="title"
                         type="text"
@@ -51,19 +42,14 @@ export default function Step1BasicInfo({data, onChange, errors}: Props)
                         onChange={(e) => onChange("title", e.target.value)}
                         placeholder="Event title"
                         className="outline-none"
-                        />
+                    />
+                    {errors.title && <span className="text-xs text-red-500">{errors.title}</span>}
                 </Field>
-                {errors.title?.[0] && (
-                    <span>{errors.title[0]}</span>
-                )}
-
 
                 <Field>
-                    <FieldLabel
-                        className="text-xs"
-                        htmlFor="block-end-textarea">
-                            Description *
-                        </FieldLabel>
+                    <FieldLabel className="text-xs" htmlFor="description">
+                        Description *
+                    </FieldLabel>
                     <InputGroup>
                         <InputGroupTextarea
                             id="description"
@@ -76,22 +62,17 @@ export default function Step1BasicInfo({data, onChange, errors}: Props)
                             <InputGroupText className="text-xs">{data.description.length}/280</InputGroupText>
                         </InputGroupAddon>
                     </InputGroup>
+                    {errors.description && <span className="text-xs text-red-500">{errors.description}</span>}
                 </Field>
-                {errors.description?.[0] && (
-                    <span>{errors.description[0]}</span>
-                )}
 
                 <div className="flex flex-col gap-2">
                     <span className="text-xs">Category *</span>
-
                     <CategoryGrid
                         value={data.category}
                         onChange={(slug) => onChange("category", slug)}
                     />
+                    {errors.category && <span className="text-xs text-red-500">{errors.category}</span>}
                 </div>
-                {errors.category?.[0] && (
-                    <span>{errors.category[0]}</span>
-                )}
 
                 <div className="flex flex-col gap-2">
                     <span className="text-xs">Cover image *</span>
@@ -99,11 +80,8 @@ export default function Step1BasicInfo({data, onChange, errors}: Props)
                         value={data.cover_image}
                         onChange={(file) => onChange("cover_image", file)}
                     />
+                    {errors.cover_image && <span className="text-xs text-red-500">{errors.cover_image}</span>}
                 </div>
-                {errors.cover_image?.[0] && (
-                    <span>{errors.cover_image[0]}</span>
-                )}
-
             </div>
         </div>
     )

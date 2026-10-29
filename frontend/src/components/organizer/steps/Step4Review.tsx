@@ -9,12 +9,8 @@ import {
 
 import {
   Alert,
-  AlertAction,
   AlertDescription,
-  AlertTitle,
 } from "@/components/ui/alert"
-
-import { InboxIcon } from "lucide-react"
 
 import { FaRegFileAlt } from "react-icons/fa";
 import { MdOutlineDateRange } from "react-icons/md";
@@ -22,49 +18,84 @@ import { GrLocation } from "react-icons/gr";
 import { LuTicket } from "react-icons/lu";
 import { AiOutlineDollar } from "react-icons/ai";
 import { GoClock } from "react-icons/go";
+import { AllFields } from "@/lib/validations/event";
 
+interface Props {
+    data: AllFields
+}
 
-const event = [
-    {
-        id: 1,
-        title: 'Event',
-        description: 'Next.js & Laravel Full-Stack Conference 2026',
-        icon: <FaRegFileAlt />
-    },
-    {
-        id: 2,
-        title: 'Category',
-        description: 'Tech',
-        icon: <FaRegFileAlt/>
-    },
-    {
-        id: 3,
-        title: 'Date',
-        description: 'Sat 14 Jun 2026 · 9:00 AM – 6:00 PM',
-        icon: <MdOutlineDateRange />
-    },
-    {
-        id: 4,
-        title: 'Location',
-        description: 'Sofitel Agadir Royal Bay, Agadir',
-        icon: <GrLocation />
-    },
-    {
-        id: 5,
-        title: 'Tickets',
-        description: '400 capacity · $49 per person',
-        icon: <LuTicket />
-    },
-    {
-        id: 6,
-        title: 'Revenue',
-        description: 'Up to $19,600',
-        icon: <AiOutlineDollar />
-    },
-]
+function formatDate(dateStr: string): string {
+    if (!dateStr) return "—"
+    const d = new Date(dateStr + "T00:00:00")
+    return d.toLocaleDateString("en-GB", { weekday: "short", day: "numeric", month: "short", year: "numeric" })
+}
 
-export default function Step4Review()
+function formatTime(timeStr: string): string {
+    if (!timeStr) return "—"
+    const [h, m] = timeStr.split(":").map(Number)
+    const ampm = h >= 12 ? "PM" : "AM"
+    const hour = h % 12 || 12
+    return `${hour}:${m.toString().padStart(2, "0")} ${ampm}`
+}
+
+export default function Step4Review({data}:Props)
 {
+    const dateDescription = `${formatDate(data.starts_at)} · ${formatTime(data.starts_at_time)} – ${formatTime(data.ends_at_time)}`
+
+    const locationDescription = data.is_online
+        ? (data.online_url || "Online")
+        : [data.venue_name, data.address].filter(Boolean).join(", ")
+
+    const price = data.price ?? 0
+    const capacity = data.capacity ?? 0
+
+    const ticketsDescription = data.is_free
+        ? `${capacity} capacity · Free`
+        : `${capacity} capacity · $${price} per person`
+
+    const revenueDescription = data.is_free
+        ? "Free event"
+        : `Up to $${(price * capacity).toFixed(2)}`
+
+    const event = [
+        {
+            id: 1,
+            title: 'Event',
+            description: data.title,
+            icon: <FaRegFileAlt />
+        },
+        {
+            id: 2,
+            title: 'Category',
+            description: data.category,
+            icon: <FaRegFileAlt/>
+        },
+        {
+            id: 3,
+            title: 'Date',
+            description: dateDescription,
+            icon: <MdOutlineDateRange />
+        },
+        {
+            id: 4,
+            title: 'Location',
+            description: locationDescription,
+            icon: <GrLocation />
+        },
+        {
+            id: 5,
+            title: 'Tickets',
+            description: ticketsDescription,
+            icon: <LuTicket />
+        },
+        {
+            id: 6,
+            title: 'Revenue',
+            description: revenueDescription,
+            icon: <AiOutlineDollar />
+        },
+    ]
+
     return(
         <div className="border flex flex-col text-gray-900 gap-y-4 rounded-md p-4">
 
@@ -76,7 +107,7 @@ export default function Step4Review()
             <div className="flex flex-col gap-y-2">
                 {
                     event.map((event) => (
-                        <Item className="bg-gray-50" variant="outline">
+                        <Item key={event.id} className="bg-gray-50" variant="outline">
                             <ItemMedia variant="icon">
                                 {event.icon}
                             </ItemMedia>

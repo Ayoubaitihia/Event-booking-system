@@ -16,13 +16,26 @@ import {
 import { RiGroupLine } from "react-icons/ri";
 import { BsCurrencyDollar } from "react-icons/bs";
 import { Field, FieldLabel } from "@/components/ui/field"
-import { Input } from '@/components/ui/input'
 import { Switch } from "@/components/ui/switch"
 import { useState } from "react"
+import { Step3Data, FormErrors } from "@/lib/validations/event";
 
-export default function Step3Tickets()
+interface Props {
+    data: Step3Data,
+    onChange: (key: keyof Step3Data, value: number | boolean | null) => void
+    errors: FormErrors
+}
+
+export default function Step3Tickets({data, onChange, errors}: Props)
 {
-    const [isOnlineEvent, setIsOnlineEvent] = useState(false)
+    const [isFreeEvent, setIsFreeEvent] = useState(false)
+
+    const handleFreeEvent = () => {
+        const next = !isFreeEvent
+        setIsFreeEvent(next)
+        onChange("is_free", next)
+        if (next) onChange("price", null)
+    }
 
     return(
         <div className="border flex flex-col text-gray-900 gap-y-4 rounded-md p-4">
@@ -40,45 +53,54 @@ export default function Step3Tickets()
                 </ItemDescription>
                 </ItemContent>
                 <ItemActions>
-                    <Switch 
-                        checked={isOnlineEvent}
-                        onCheckedChange={setIsOnlineEvent}
-                        id="airplane-mode"
+                    <Switch
+                        checked={isFreeEvent}
+                        onCheckedChange={handleFreeEvent}
+                        id="free-event"
                     />
                 </ItemActions>
             </Item>
 
             <div className="grid grid-cols-2 gap-4">
                 <Field>
-                    <FieldLabel
-                        className="text-xs"
-                        htmlFor="input-demo-api-key">
-                            Ticket price (USD) *
+                    <FieldLabel className="text-xs" htmlFor="price">
+                        Ticket price (USD) *
                     </FieldLabel>
                     <InputGroup>
-                        <InputGroupInput className="placeholder:text-xs" id="inline-start-input" placeholder="0.00" />
+                        <InputGroupInput
+                            id="price"
+                            readOnly={data.is_free}
+                            value={data.price ?? ""}
+                            onChange={(e) => onChange("price", e.target.value === "" ? null : Number(e.target.value))}
+                            className="placeholder:text-xs"
+                            placeholder="0.00"
+                        />
                         <InputGroupAddon align="inline-start">
                             <BsCurrencyDollar />
                         </InputGroupAddon>
                     </InputGroup>
+                    {errors.price && <span className="text-xs text-red-500">{errors.price}</span>}
                 </Field>
 
                 <Field>
-                    <FieldLabel
-                        className="text-xs"
-                        htmlFor="input-demo-api-key">
-                            Capacity *
+                    <FieldLabel className="text-xs" htmlFor="capacity">
+                        Capacity *
                     </FieldLabel>
                     <InputGroup>
-                        <InputGroupInput className="placeholder:text-xs" id="inline-start-input" placeholder="100" />
+                        <InputGroupInput
+                            id="capacity"
+                            value={data.capacity ?? ""}
+                            onChange={(e) => onChange("capacity", e.target.value === "" ? null : Number(e.target.value))}
+                            className="placeholder:text-xs"
+                            placeholder="0"
+                        />
                         <InputGroupAddon align="inline-start">
                             <RiGroupLine />
                         </InputGroupAddon>
                     </InputGroup>
+                    {errors.capacity && <span className="text-xs text-red-500">{errors.capacity}</span>}
                 </Field>
             </div>
-
-            
 
         </div>
     )

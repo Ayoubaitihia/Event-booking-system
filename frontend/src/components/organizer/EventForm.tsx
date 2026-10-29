@@ -1,6 +1,5 @@
 "use client"
 
-import {z} from "zod"
 import { useState } from "react";
 import FormStepper from "./FormStepper";
 import Step1BasicInfo from "./steps/Step1BasicInfo";
@@ -10,19 +9,17 @@ import Step4BasicInfo from "./steps/Step4Review";
 import { FiSend } from "react-icons/fi";
 import { Button } from "@/components/ui/button"
 import { FiArrowRight, FiArrowLeft } from "react-icons/fi";
-import { Step1Data, Step2Data, step1Scheme, step1Error, step2Scheme } from "@/lib/validations/event"
+import { Step1Data, Step2Data, Step3Data, step1Scheme, step2Scheme, step3Scheme, FormErrors } from "@/lib/validations/event"
 
-type FormData = Step1Data & Step2Data
+type FormData = Step1Data & Step2Data & Step3Data
 
 const STEPS = ["Basics info", "Data & location", "Tickets", "Review"]
-const TOTAL = STEPS.length
 
 export default function EventForm()
 {
-    const [step, setStep] = useState(2)
+    const [step, setStep] = useState(1)
 
     const [data, setData] = useState<FormData>({
-
         title: "",
         description: "",
         category: "",
@@ -36,12 +33,16 @@ export default function EventForm()
         online_url: "",
         venue_name: "",
         address: "",
+
+        is_free: false,
+        price: 0,
+        capacity: 100,
     })
 
-    const [errors, setErrors] = useState<step1Errors>({})
+    const [errors, setErrors] = useState<FormErrors>({})
 
-    const onChange = (key: keyof FormData, value: string | File | boolean | null) =>{
-        setData(prev => ({ ...prev, [key]: value}))
+    const onChange = (key: keyof FormData, value: string | number | File | boolean | null) => {
+        setData(prev => ({ ...prev, [key]: value }))
     }
 
     const stepComponents: Record<number, React.ReactNode> = {
@@ -51,64 +52,56 @@ export default function EventForm()
             errors={errors}
         />,
         2: <Step2BasicInfo
+            onChange={onChange}
+            errors={errors}
+        />,
+        3: <Step3BasicInfo
             data={data}
             onChange={onChange}
             errors={errors}
         />,
-        3: <Step3BasicInfo/>,
-        4: <Step4BasicInfo/>
+        4: <Step4BasicInfo
+            data={data}
+        />
     }
 
     const steps_length: number = Object.keys(stepComponents).length
 
-    const handle_nextStep = (step: number) => {
-
-        if (step < steps_length){
-            step++
-            setStep(step)
-        }
-    }
-
     const handle_backStep = (step: number) => {
-
-        if (step > 1){
-            step--
-            setStep(step)
-        }
+        if (step > 1) setStep(step - 1)
     }
 
-    const validate = () =>{
-        const result = step2Scheme.safeParse(data)
+    const validate = () => {
+        const stepSchemes = [step1Scheme, step2Scheme, step3Scheme]
+        const result = stepSchemes[step - 1].safeParse(data)
 
-        if (!result.success){
-            console.log("Error", z.flattenError(result.error).fieldErrors)
-            const fieldErrors = z.flattenError(result.error).fieldErrors
-
-            setErrors(fieldErrors)
-
+        if (!result.success) {
+            const flat: FormErrors = {}
+            for (const issue of result.error.issues) {
+                const key = issue.path[0] as keyof FormErrors
+                if (key && !flat[key]) flat[key] = issue.message
+            }
+            setErrors(flat)
             return false
         }
 
-        console.log("Data", result.data)
         setErrors({})
         return true
     }
 
     const handleNext = () => {
-        if(validate()){
-            setStep(s => s + 1)
-        }
+        if (validate()) setStep(s => s + 1)
     }
 
     return(
-        <div className="max-w-3xl">
+        <div className="max-w-3xl w-full">
             <FormStepper step={step} steps={STEPS} />
 
             {stepComponents[step]}
 
             <div className="grid mt-4 grid-cols-3 gap-x-2">
                 {step > 1 && <Button
-                onClick={() => handle_backStep(step)}
+                    onClick={() => handle_backStep(step)}
                     className="text-xs flex py-4 cursor-pointer gap-x-0.5"
                     variant="outline"
                 >
