@@ -47,11 +47,12 @@ function formatDate(date: Date | undefined) {
 
 interface DateTimePickerProps {
     label: string,
+    fieldKey: keyof Step2Data,
     onChange: (key: keyof Step2Data, value: string | File | boolean | null) => void
-    errors: step2Errors
+    errors?: step2Errors
 }
 
-export default function DateTimePicker({ label }: DateTimePickerProps)
+export default function DateTimePicker({ label, fieldKey, onChange }: DateTimePickerProps)
 {
     const [open, setOpen] = React.useState(false)
     const [value, setValue] = React.useState("")
@@ -79,6 +80,7 @@ export default function DateTimePicker({ label }: DateTimePickerProps)
 
                         if (parsedDate) {
                             setDate(parsedDate)
+                            onChange(fieldKey, parsedDate.toLocaleDateString("en-CA"))
                         }
                     }}
 
@@ -118,6 +120,7 @@ export default function DateTimePicker({ label }: DateTimePickerProps)
                             defaultMonth={date}
                             onSelect={(date) => {
                             setDate(date)
+                            onChange(fieldKey, date ? date.toLocaleDateString("en-CA") : null)
                             setValue(formatDate(date))
                             setOpen(false)
                             }}

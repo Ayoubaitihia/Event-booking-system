@@ -35,12 +35,16 @@ export default function Step2DateTime({data, onChange, errors}: Props)
         onChange("is_online", !isOnlineEvent)
     }
 
-    const submit = () => {!
+    const submit = () => {
+        console.log("Start at:", data.starts_at)
+        console.log("Starts_at_time:", data.starts_at_time)
+        console.log("Ends_at:", data.ends_at)
+        console.log("Ends_at_time:", data.ends_at_time)
         console.log("is online:", data.is_online)
         console.log("URL online:", data.online_url)
         console.log("venue name:", data.venue_name)
         console.log("address:", data.address)
-        console.log("submitted")
+        console.log("=== submitted ===")
     }
 
     return(
@@ -54,18 +58,22 @@ export default function Step2DateTime({data, onChange, errors}: Props)
             <div className="grid gap-4 grid-cols-2">
                 <DateTimePicker
                     onChange={onChange}
+                    fieldKey="starts_at"
                     label="Start date *"
                 />
                 <TimePicker
                     onChange={onChange}
+                    fieldKey="starts_at_time"
                     label="Start time *"
                 />
-                <DateTimePicker 
+                <DateTimePicker
                     onChange={onChange}
+                    fieldKey="ends_at"
                     label="End date *"
                 />
                 <TimePicker
                     onChange={onChange}
+                    fieldKey="ends_at_time"
                     label="End time *"
                 />
             </div>
@@ -129,7 +137,7 @@ export default function Step2DateTime({data, onChange, errors}: Props)
             )}
 
             <button
-            onClick={() => submit()}
+                onClick={() => submit()}
             >
                 Submit
             </button>

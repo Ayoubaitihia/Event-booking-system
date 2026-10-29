@@ -10,9 +10,9 @@ import Step4BasicInfo from "./steps/Step4Review";
 import { FiSend } from "react-icons/fi";
 import { Button } from "@/components/ui/button"
 import { FiArrowRight, FiArrowLeft } from "react-icons/fi";
-import { Step1Data } from "@/lib/validations/event"
-import { step1Scheme } from "@/lib/validations/event"
-import { step1Errors } from "@/lib/validations/event"
+import { Step1Data, Step2Data, step1Scheme, step1Error, step2Scheme } from "@/lib/validations/event"
+
+type FormData = Step1Data & Step2Data
 
 const STEPS = ["Basics info", "Data & location", "Tickets", "Review"]
 const TOTAL = STEPS.length
@@ -21,7 +21,7 @@ export default function EventForm()
 {
     const [step, setStep] = useState(2)
 
-    const [data, setData] = useState<Step1Data>({
+    const [data, setData] = useState<FormData>({
 
         title: "",
         description: "",
@@ -29,7 +29,9 @@ export default function EventForm()
         cover_image: null,
 
         starts_at: "",
+        starts_at_time: "08:30",
         ends_at: "",
+        ends_at_time: "08:30",
         is_online: false,
         online_url: "",
         venue_name: "",
@@ -38,7 +40,7 @@ export default function EventForm()
 
     const [errors, setErrors] = useState<step1Errors>({})
 
-    const onChange = (key: keyof Step1Data, value: string | File | null) =>{
+    const onChange = (key: keyof FormData, value: string | File | boolean | null) =>{
         setData(prev => ({ ...prev, [key]: value}))
     }
 
@@ -76,14 +78,14 @@ export default function EventForm()
     }
 
     const validate = () =>{
-        const result = step1Scheme.safeParse(data)
+        const result = step2Scheme.safeParse(data)
 
         if (!result.success){
             console.log("Error", z.flattenError(result.error).fieldErrors)
             const fieldErrors = z.flattenError(result.error).fieldErrors
 
             setErrors(fieldErrors)
-            
+
             return false
         }
 

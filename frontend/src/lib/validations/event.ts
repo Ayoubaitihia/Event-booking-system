@@ -29,10 +29,16 @@ export const step1Scheme = z.object({
 
 export const step2Scheme = z.object({
     starts_at: z.string()
-        .min(1, "Start date & time is required"),
+        .min(1, "Start date is required"),
+
+    starts_at_time: z.string()
+        .min(1, "Start time is required"),
 
     ends_at: z.string()
-        .min(1, "End date & time is required"),
+        .min(1, "End date is required"),
+
+    ends_at_time: z.string()
+        .min(1, "End time is required"),
 
     is_online: z.boolean(),
     online_url: z.string()
@@ -41,13 +47,13 @@ export const step2Scheme = z.object({
     address: z.string()
 
 })
-.refine(
-    (data) => !data.starts_at || !data.ends_at || data.starts_at < data.ends_at,
-    {
-        message: "End time must be after start time",
-        path: ["ends_at"]
-    }
-)
+// .refine(
+//     (data) => !data.starts_at || !data.ends_at || data.starts_at <= data.ends_at,
+//     {
+//         message: "End time must be after start time",
+//         path: ["ends_at"]
+//     }
+// )
 .refine(
     (data) => !data.is_online || !!data.online_url?.trim(),
     {
@@ -56,17 +62,33 @@ export const step2Scheme = z.object({
     }
 )
 .refine(
-    (data) => data.is_online || data.venue_name.trim().length > 0,
+    (data) => !data.is_online || data.venue_name.trim().length > 0,
     {
         message: "Venue name is required for in-person events",
         path: ["venue_name"]
     }
 )
 .refine(
-    (data) => data.is_online || data.address.trim().length > 0,
+    (data) => !data.is_online || data.address.trim().length > 0,
     {
         message: "Address is required for in-person events",
         path: ["address"]
+    }
+)
+.refine(
+    (data) =>{
+
+        if (data.starts_at > data.ends_at)
+            return false
+
+        if ((data.starts_at == data.ends_at) && (data.starts_at_time > data.ends_at_time)){
+            return false
+        }
+
+        return true
+    },{
+        message: "End date and time must be after start date and time",
+        path: ["ends_at_time"]
     }
 )
 
