@@ -4,34 +4,34 @@ import { FiEdit } from "react-icons/fi";
 import { SlOptions } from "react-icons/sl";
 import { MdOutlineLaptop } from "react-icons/md";
 import BookingProgressBar from "@/components/organizer/BookingProgressBar"
+import { PencilIcon, ShareIcon, TrashIcon } from "lucide-react"
+import { Button } from "@/components/ui/button"
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuGroup,
+  DropdownMenuItem,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu"
+
+import { EventProps } from "@/lib/static/events"
 
 
-interface Event{
-    id: number,
-    slug: string,
-    title: string,
-    description: string,
-    category: string,
-    cover_image: File,
-    starts_at: string,
-    ends_at: string,
-    is_online: boolean,
-    online_url: string | null,
-    venue_name: string,
-    address: string,
-    capacity: number,
-    booked: number,
-    price: number,
-    is_free: boolean,
-    status: string,
-    created_at: string,
-}
+export default function OrganizerEventCard({event}: EventProps){
 
-interface Props{
-    event: Event
-}
+    const handleEdit = () => {
+        console.log("Editing event...");
+    };
 
-export default function OrganizerEventCard({event}: Props){
+    const handleShare = () => {
+        console.log("Sharing event...");
+    };
+
+    const handleDelete = () => {
+        console.log("Deleting event...");
+    };
+
     return (
         <div className="border rounded-xl p-3 flex flex-col gap-y-2">
             <div className="flex items-center gap-x-3">
@@ -56,8 +56,43 @@ export default function OrganizerEventCard({event}: Props){
                             <div className="rounded-sm border p-1 cursor-pointer">
                                 <FiEdit className="text-sm"/>
                             </div>
-                            <div className="rounded-sm border p-1 cursor-pointer">
+                            {/* <div className="rounded-sm border p-1 cursor-pointer">
                                 <SlOptions className="text-sm"/>
+                            </div> */}
+                            <div className="rounded-sm border p-1 cursor-pointer">
+                                <DropdownMenu>
+                                    <DropdownMenuTrigger asChild>
+                                        {/* <Button variant="outline">
+                                            Actions
+                                        </Button> */}
+                                        <Button className="bg-transparent border-0 p-0 m-0" variant="outline">
+                                            <SlOptions className="text-sm"/>
+                                        </Button>
+                                    </DropdownMenuTrigger>
+
+                                    <DropdownMenuContent align="end">
+                                        <DropdownMenuGroup>
+                                            <DropdownMenuItem>
+                                                <PencilIcon />
+                                                Edit
+                                            </DropdownMenuItem>
+
+                                            <DropdownMenuItem>
+                                                <ShareIcon />
+                                                Share
+                                            </DropdownMenuItem>
+                                        </DropdownMenuGroup>
+
+                                        <DropdownMenuSeparator />
+
+                                        <DropdownMenuGroup>
+                                            <DropdownMenuItem variant="destructive">
+                                                <TrashIcon />
+                                                Delete
+                                            </DropdownMenuItem>
+                                        </DropdownMenuGroup>
+                                    </DropdownMenuContent>
+                                </DropdownMenu>
                             </div>
                         </div>
                     </div>

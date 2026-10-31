@@ -2,7 +2,7 @@ import { Tabs, TabsList, TabsContent, TabsTrigger } from "@/components/ui/tabs"
 import OrganizerEventTabs from "./OrganizerEventTabs"
 import OrganizerEventCard from "./OrganizerEventCard"
 import OrganizerEventSearch from "./OrganizerEventSearch"
-import { STATIC_EVENTS } from "@/lib/static/events"
+import { EventProps } from "@/lib/static/events"
 
 const data = {
     tabs: [
@@ -29,7 +29,7 @@ const data = {
     ]
 }
 
-export default function OrganizerEventList(){
+export default function OrganizerEventList({events}: EventProps){
     return (
         <Tabs defaultValue="all" className="mt-3">
             <OrganizerEventTabs tabs={data.tabs}/>
@@ -38,7 +38,7 @@ export default function OrganizerEventList(){
                 <span className="text-xs text-gray-700">Showing 6 of 6 events</span>
                 <div className="flex flex-col gap-y-2 mt-2">
                     {
-                        STATIC_EVENTS.map((event) => (
+                        events.map((event: EventProps) => (
                             <OrganizerEventCard key={event.id} event={event}/>
                         ))
                     }

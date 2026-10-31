@@ -11,7 +11,7 @@ export const step1Scheme = z.object({
 
     category: z.string()
         .min(1, "Please select a category"),
-    
+
     cover_image: z
         .instanceof(File, {message: "Image is required"})
         .nullable()
@@ -47,7 +47,6 @@ export const step2Scheme = z.object({
         .optional(),
     venue_name: z.string(),
     address: z.string()
-
 })
 .refine(
     (data) => !data.is_online || !!data.online_url?.trim(),
@@ -91,9 +90,11 @@ export const step2Scheme = z.object({
 
 export const step3Scheme = z.object({
     is_free: z.boolean(),
+
     price: z.number()
         .min(0, "Price cannot be negative")
         .nullable(),
+
     capacity: z.number()
         .min(1, "Capacity must be at least 1")
         .nullable(),
