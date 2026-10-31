@@ -82,7 +82,9 @@ export default function OrganizerEventList({events}: EventProps){
                                 event={event}/>
                         ))
                     ): (
-                        <h3>NOT FOUND</h3>
+                        <div className="flex flex-col items-center justify-center py-16 text-center">
+                            <p className="text-gray-400 text-sm mt-2">No events found matching your search.</p>
+                        </div>
                     )}
                 </div>
             </TabsContent>
