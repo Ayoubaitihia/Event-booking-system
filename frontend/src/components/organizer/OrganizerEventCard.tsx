@@ -5,7 +5,6 @@ import { SlOptions } from "react-icons/sl";
 import { MdOutlineLaptop } from "react-icons/md";
 import BookingProgressBar from "@/components/organizer/BookingProgressBar"
 import { PencilIcon, ShareIcon, TrashIcon } from "lucide-react"
-import { Button } from "@/components/ui/button"
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -14,6 +13,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
+import { FiCopy, FiXCircle, FiTrash2, FiExternalLink } from "react-icons/fi"
 
 import { EventProps } from "@/lib/static/events"
 
@@ -56,30 +56,28 @@ export default function OrganizerEventCard({event}: EventProps){
                             <div className="rounded-sm border p-1 cursor-pointer">
                                 <FiEdit className="text-sm"/>
                             </div>
-                            {/* <div className="rounded-sm border p-1 cursor-pointer">
-                                <SlOptions className="text-sm"/>
-                            </div> */}
-                            <div className="rounded-sm border p-1 cursor-pointer">
-                                <DropdownMenu>
+                            <DropdownMenu>
                                     <DropdownMenuTrigger asChild>
-                                        {/* <Button variant="outline">
-                                            Actions
-                                        </Button> */}
-                                        <Button className="bg-transparent border-0 p-0 m-0" variant="outline">
+                                        <div className="rounded-sm border p-1 cursor-pointer">
                                             <SlOptions className="text-sm"/>
-                                        </Button>
+                                        </div>
                                     </DropdownMenuTrigger>
 
                                     <DropdownMenuContent align="end">
                                         <DropdownMenuGroup>
                                             <DropdownMenuItem>
-                                                <PencilIcon />
-                                                Edit
+                                                <FiCopy />
+                                                Duplicate
                                             </DropdownMenuItem>
 
                                             <DropdownMenuItem>
-                                                <ShareIcon />
-                                                Share
+                                                <FiExternalLink />
+                                                View
+                                            </DropdownMenuItem>
+
+                                            <DropdownMenuItem>
+                                                <FiXCircle />
+                                                Cancel
                                             </DropdownMenuItem>
                                         </DropdownMenuGroup>
 
@@ -92,11 +90,13 @@ export default function OrganizerEventCard({event}: EventProps){
                                             </DropdownMenuItem>
                                         </DropdownMenuGroup>
                                     </DropdownMenuContent>
-                                </DropdownMenu>
-                            </div>
+                            </DropdownMenu>
                         </div>
                     </div>
-                    <BookingProgressBar/>
+                    <BookingProgressBar
+                        capacity={event.capacity}
+                        booked={event.booked}
+                    />
                 </div>
             </div>
         </div>
