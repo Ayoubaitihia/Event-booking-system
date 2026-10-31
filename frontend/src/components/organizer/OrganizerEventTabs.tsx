@@ -12,7 +12,11 @@ export default function OrganizerEventTabs({
         <div className="border-b">
             <TabsList variant="line" className="gap-x-8">
                 {tabs.map((tab) => (
-                    <TabsTrigger className="cursor-pointer" value={tab.value}>
+                    <TabsTrigger
+                        key={tab.id}
+                        className="cursor-pointer"
+                        value={tab.value}
+                    >
                         {tab.name}
                     </TabsTrigger>
                 ))}

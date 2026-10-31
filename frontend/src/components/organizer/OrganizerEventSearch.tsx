@@ -25,12 +25,17 @@ import {
 } from "@/components/ui/field"
 import { Label } from "@/components/ui/label"
 
-export default function OrganizerEventSearch()
+
+export default function OrganizerEventSearch({onChange})
 {
     return(
         <div className="grid grid-cols-6 gap-2">
             <InputGroup className="col-span-4">
-                <InputGroupInput id="inline-start-input" placeholder="Search events..." />
+                <InputGroupInput 
+                  onChange={(e) => onChange("title", e.target.value)}
+                  id="inline-start-input"
+                  placeholder="Search events..."
+                />
                 <InputGroupAddon align="inline-start">
                 <SearchIcon className="text-muted-foreground" />
                 </InputGroupAddon>
