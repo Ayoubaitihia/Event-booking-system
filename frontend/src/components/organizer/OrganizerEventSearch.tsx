@@ -1,6 +1,6 @@
 "use client"
 
-import { SearchIcon } from "lucide-react"
+import { SearchIcon, SlidersHorizontal, ArrowUpDown } from "lucide-react"
 import {
   InputGroup,
   InputGroupAddon,
@@ -12,111 +12,107 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover"
-import { CiFilter } from "react-icons/ci";
-import { FaSort } from "react-icons/fa";
 import { Checkbox } from "@/components/ui/checkbox"
-import {
-  Field,
-  FieldContent,
-  FieldDescription,
-  FieldGroup,
-  FieldLabel,
-  FieldTitle,
-} from "@/components/ui/field"
+import { Field, FieldGroup } from "@/components/ui/field"
 import { Label } from "@/components/ui/label"
+import { CATEGORIES } from '@/lib/static/categories'
 
 
-export default function OrganizerEventSearch({onChange})
-{
-    return(
-        <div className="grid grid-cols-6 gap-2">
-            <InputGroup className="col-span-4">
-                <InputGroupInput 
-                  onChange={(e) => onChange("title", e.target.value)}
-                  id="inline-start-input"
-                  placeholder="Search events..."
-                />
-                <InputGroupAddon align="inline-start">
-                <SearchIcon className="text-muted-foreground" />
-                </InputGroupAddon>
-            </InputGroup>
+export default function OrganizerEventSearch({ onChange }: { onChange: (key: string, value: string) => void }) {
+  return (
+    <div className="flex items-center gap-2">
+      <InputGroup className="flex-1">
+        <InputGroupAddon align="inline-start">
+          <SearchIcon className="text-muted-foreground" />
+        </InputGroupAddon>
+        <InputGroupInput
+          onChange={(e) => onChange("title", e.target.value)}
+          placeholder="Search events..."
+        />
+      </InputGroup>
 
-            <Popover>
-              <PopoverTrigger asChild>
-                <Button className="cursor-pointer" variant="outline">
-                  <CiFilter />
-                  Filter
-                </Button>
-              </PopoverTrigger>
-              <PopoverContent className="w-150">
-                <div className="grid grid-cols-3 items-start gap-x-4 p-2">
-                  <div>
-                    <span className="uppercase text-[10px] font-light">Status</span>
-                    <FieldGroup className="mt-2 gap-y-2.5 ml-1.5">
-                      <Field orientation="horizontal">
-                        <Checkbox id="terms-checkbox" name="terms-checkbox" />
-                        <Label className="text-xs" htmlFor="terms-checkbox">Upcoming</Label>
-                      </Field>
-                      <Field orientation="horizontal">
-                        <Checkbox id="terms-checkbox" name="terms-checkbox" />
-                        <Label className="text-xs" htmlFor="terms-checkbox">Attended</Label>
-                      </Field>
-                      <Field orientation="horizontal">
-                        <Checkbox id="terms-checkbox" name="terms-checkbox" />
-                        <Label className="text-xs" htmlFor="terms-checkbox">Cancelled</Label>
-                      </Field>
-                    </FieldGroup>
-                  </div>
-                  <div>
-                    <span className="uppercase text-[10px] font-light">Category</span>
-                    <FieldGroup className="mt-2 gap-y-2.5 ml-1.5">
-                      <Field orientation="horizontal" >
-                        <Checkbox id="terms-checkbox" name="terms-checkbox" />
-                        <Label className="text-xs" htmlFor="terms-checkbox">Tech</Label>
-                      </Field>
-                      <Field orientation="horizontal">
-                        <Checkbox id="terms-checkbox" name="terms-checkbox" />
-                        <Label className="text-xs" htmlFor="terms-checkbox">Sports</Label>
-                      </Field>
-                      <Field orientation="horizontal">
-                        <Checkbox id="terms-checkbox" name="terms-checkbox" />
-                        <Label className="text-xs" htmlFor="terms-checkbox">Arts</Label>
-                      </Field>
-                      <Field orientation="horizontal">
-                        <Checkbox id="terms-checkbox" name="terms-checkbox" />
-                        <Label className="text-xs" htmlFor="terms-checkbox">Food</Label>
-                      </Field>
-                    </FieldGroup>
-                  </div>
-                  <div>
-                    <span className="uppercase text-[10px] font-light">Status</span>
-                    <FieldGroup className="mt-2 gap-y-2.5 ml-1.5">
-                      <Field orientation="horizontal">
-                        <Checkbox id="terms-checkbox" name="terms-checkbox" />
-                        <Label className="text-xs" htmlFor="terms-checkbox">Free</Label>
-                      </Field>
-                      <Field orientation="horizontal">
-                        <Checkbox id="terms-checkbox" name="terms-checkbox" />
-                        <Label className="text-xs" htmlFor="terms-checkbox">Paid</Label>
-                      </Field>
-                    </FieldGroup>
-                  </div>
-                </div>
-                <div className="border-t py-2 flex items-center justify-between">
-                  <Button className="cursor-pointer text-xs" variant="outline">
-                    Clear all filters
-                  </Button>
-                  <Button className="cursor-pointer text-xs" variant="outline">
-                    Apply filters
-                  </Button>
-                </div>
-              </PopoverContent>
-            </Popover>
-
-            <Button className="cursor-pointer" variant="outline">
-              <FaSort />
-              A-Z
+      <Popover>
+        <PopoverTrigger asChild>
+          <Button className="cursor-pointer" variant="outline" size="sm">
+            <SlidersHorizontal />
+            Filter
+          </Button>
+        </PopoverTrigger>
+        <PopoverContent className="w-150">
+          <div className="grid grid-cols-4 items-start gap-x-4 p-2">
+            <div>
+              <span className="uppercase text-[10px] font-medium tracking-wide text-muted-foreground">
+                Status
+              </span>
+              <FieldGroup className="mt-2 gap-y-2.5 ml-1.5">
+                <Field orientation="horizontal">
+                  <Checkbox id="status-upcoming" name="status-upcoming" />
+                  <Label className="text-xs" htmlFor="status-upcoming">Upcoming</Label>
+                </Field>
+                <Field orientation="horizontal">
+                  <Checkbox id="status-attended" name="status-attended" />
+                  <Label className="text-xs" htmlFor="status-attended">Attended</Label>
+                </Field>
+                <Field orientation="horizontal">
+                  <Checkbox id="status-cancelled" name="status-cancelled" />
+                  <Label className="text-xs" htmlFor="status-cancelled">Cancelled</Label>
+                </Field>
+              </FieldGroup>
+            </div>
+            <div className="col-span-2">
+              <span className="uppercase text-[10px] font-medium tracking-wide text-muted-foreground">
+                Category
+              </span>
+              <div className="mt-2 grid grid-cols-2 gap-x-4">
+                <FieldGroup className="gap-y-2.5 ml-1.5">
+                  {CATEGORIES.slice(0, 5).map((category) => (
+                    <Field key={category.slug} orientation="horizontal">
+                      <Checkbox id={`cat-${category.slug}`} name={`cat-${category.slug}`} />
+                      <Label className="text-xs" htmlFor={`cat-${category.slug}`}>{category.name}</Label>
+                    </Field>
+                  ))}
+                </FieldGroup>
+                <FieldGroup className="gap-y-2.5 ml-1.5">
+                  {CATEGORIES.slice(5).map((category) => (
+                    <Field key={category.slug} orientation="horizontal">
+                      <Checkbox id={`cat-${category.slug}`} name={`cat-${category.slug}`} />
+                      <Label className="text-xs" htmlFor={`cat-${category.slug}`}>{category.name}</Label>
+                    </Field>
+                  ))}
+                </FieldGroup>
+              </div>
+            </div>
+            <div>
+              <span className="uppercase text-[10px] font-medium tracking-wide text-muted-foreground">
+                Price
+              </span>
+              <FieldGroup className="mt-2 gap-y-2.5 ml-1.5">
+                <Field orientation="horizontal">
+                  <Checkbox id="price-free" name="price-free" />
+                  <Label className="text-xs" htmlFor="price-free">Free</Label>
+                </Field>
+                <Field orientation="horizontal">
+                  <Checkbox id="price-paid" name="price-paid" />
+                  <Label className="text-xs" htmlFor="price-paid">Paid</Label>
+                </Field>
+              </FieldGroup>
+            </div>
+          </div>
+          <div className="border-t pt-2 px-2 flex items-center justify-between">
+            <Button className="cursor-pointer" variant="ghost" size="sm">
+              Clear all
             </Button>
-        </div> 
-    )
+            <Button className="cursor-pointer" size="sm">
+              Apply
+            </Button>
+          </div>
+        </PopoverContent>
+      </Popover>
+
+      <Button className="cursor-pointer" variant="outline" size="sm">
+        <ArrowUpDown />
+        Sort
+      </Button>
+    </div>
+  )
 }

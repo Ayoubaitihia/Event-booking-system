@@ -1,10 +1,10 @@
+import { useState } from "react"
 import { Badge } from "@/components/ui/badge"
 import { RiGroupLine } from "react-icons/ri";
 import { FiEdit } from "react-icons/fi";
 import { SlOptions } from "react-icons/sl";
 import { MdOutlineLaptop } from "react-icons/md";
 import BookingProgressBar from "@/components/organizer/BookingProgressBar"
-import { PencilIcon, ShareIcon, TrashIcon } from "lucide-react"
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -13,12 +13,23 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
+
 import { FiCopy, FiXCircle, FiTrash2, FiExternalLink } from "react-icons/fi"
 
 import { EventProps } from "@/lib/static/events"
+import DeleteEventDialog from "@/components/organizer/DeleteEventDialog"
+import DuplicateEventDialog from "./DuplicateEventDialog";
 
 
 export default function OrganizerEventCard({event}: EventProps){
+
+    const [deleteOpen, setDeleteOpen] = useState(false)
+    const [duplicateOpen, setDuplicateOpen] = useState(false)
+
+    const handleDuplicate = () => {
+        console.log("Duplicate event...");
+        setDuplicateOpen(false)
+    };
 
     const handleEdit = () => {
         console.log("Editing event...");
@@ -30,6 +41,7 @@ export default function OrganizerEventCard({event}: EventProps){
 
     const handleDelete = () => {
         console.log("Deleting event...");
+        setDeleteOpen(false)
     };
 
     return (
@@ -65,7 +77,7 @@ export default function OrganizerEventCard({event}: EventProps){
 
                                     <DropdownMenuContent align="end">
                                         <DropdownMenuGroup>
-                                            <DropdownMenuItem>
+                                            <DropdownMenuItem onSelect={() => setDuplicateOpen(true)}>
                                                 <FiCopy />
                                                 Duplicate
                                             </DropdownMenuItem>
@@ -84,8 +96,8 @@ export default function OrganizerEventCard({event}: EventProps){
                                         <DropdownMenuSeparator />
 
                                         <DropdownMenuGroup>
-                                            <DropdownMenuItem variant="destructive">
-                                                <TrashIcon />
+                                            <DropdownMenuItem variant="destructive" onSelect={() => setDeleteOpen(true)}>
+                                                <FiTrash2 />
                                                 Delete
                                             </DropdownMenuItem>
                                         </DropdownMenuGroup>
@@ -99,6 +111,18 @@ export default function OrganizerEventCard({event}: EventProps){
                     />
                 </div>
             </div>
+
+            <DeleteEventDialog
+                open={deleteOpen}
+                onOpenChange={setDeleteOpen}
+                onDelete={handleDelete}
+            />
+
+            <DuplicateEventDialog
+                open={duplicateOpen}
+                onOpenChange={setDuplicateOpen}
+                onDuplicate={handleDuplicate}
+            />
         </div>
     )
 }

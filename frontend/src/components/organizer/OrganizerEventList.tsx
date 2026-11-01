@@ -61,9 +61,9 @@ export default function OrganizerEventList({events}: EventProps){
 
     return (
         <Tabs defaultValue="all" className="mt-3">
-            <OrganizerEventTabs
+            {/* <OrganizerEventTabs
                 tabs={data.tabs}
-            />
+            /> */}
 
             <OrganizerEventSearch
                 onChange={onChange}
