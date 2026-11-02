@@ -16,9 +16,14 @@ import { Checkbox } from "@/components/ui/checkbox"
 import { Field, FieldGroup } from "@/components/ui/field"
 import { Label } from "@/components/ui/label"
 import { CATEGORIES } from '@/lib/static/categories'
+import { SearchQuery } from "@/lib/types"
 
+interface Props{
+  onChange: (key: string, value: string) => void,
+  value: SearchQuery
+}
 
-export default function OrganizerEventSearch({ onChange }: { onChange: (key: string, value: string) => void }) {
+export default function OrganizerEventSearch({ onChange, value}: Props) {
   return (
     <div className="flex items-center gap-2">
       <InputGroup className="flex-1">
@@ -46,15 +51,30 @@ export default function OrganizerEventSearch({ onChange }: { onChange: (key: str
               </span>
               <FieldGroup className="mt-2 gap-y-2.5 ml-1.5">
                 <Field orientation="horizontal">
-                  <Checkbox id="status-upcoming" name="status-upcoming" />
+                  <Checkbox
+                    checked={value.status == "status-upcoming"}
+                    onCheckedChange={() => onChange("status", "status-upcoming")}
+                    id="status-upcoming"
+                    name="status-upcoming"
+                  />
                   <Label className="text-xs" htmlFor="status-upcoming">Upcoming</Label>
                 </Field>
                 <Field orientation="horizontal">
-                  <Checkbox id="status-attended" name="status-attended" />
+                  <Checkbox
+                    checked={value.status == "status-attended"}
+                    onCheckedChange={() => onChange("status", "status-attended")}
+                    id="status-attended"
+                    name="status-attended"
+                  />
                   <Label className="text-xs" htmlFor="status-attended">Attended</Label>
                 </Field>
                 <Field orientation="horizontal">
-                  <Checkbox id="status-cancelled" name="status-cancelled" />
+                  <Checkbox
+                    checked={value.status == "status-cancelled"}
+                    onCheckedChange={() => onChange("status", "status-cancelled")}
+                    id="status-cancelled"
+                    name="status-cancelled"
+                  />
                   <Label className="text-xs" htmlFor="status-cancelled">Cancelled</Label>
                 </Field>
               </FieldGroup>

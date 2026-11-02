@@ -1,5 +1,14 @@
 import { IconType } from "react-icons";
 
+export type EventQueryStatus = "status-upcoming" | "status-attended" | "status-cancelled" | ""
+
+export type SearchQuery = {
+  title: string
+  status: EventQueryStatus | ""
+  category: string
+  price: string
+}
+
 export type EventStatus = "draft" | "published" | "cancelled" | "completed";
 
 

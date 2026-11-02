@@ -6,6 +6,7 @@ import OrganizerEventCard from "./OrganizerEventCard"
 import OrganizerEventSearch from "./OrganizerEventSearch"
 import { EventProps } from "@/lib/static/events"
 import { useEffect, useState } from "react"
+import { SearchQuery } from "@/lib/types"
 
 const data = {
     tabs: [
@@ -39,11 +40,13 @@ const data = {
 
 export default function OrganizerEventList({events}: EventProps){
 
-    const [searchQuery, setSearchQuery] = useState({
+    const [searchQuery, setSearchQuery] = useState<SearchQuery>({
         title: "",
         status: "",
         category: "",
+        price: ""
     })
+
     const [filtered_events, setFiltered_events] = useState([])
 
     const onChange = (key, value) =>{
@@ -67,6 +70,7 @@ export default function OrganizerEventList({events}: EventProps){
 
             <OrganizerEventSearch
                 onChange={onChange}
+                value={searchQuery}
             />
 
             <TabsContent value="all">

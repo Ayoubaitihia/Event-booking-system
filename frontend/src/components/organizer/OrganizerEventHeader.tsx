@@ -1,24 +1,22 @@
-"use client"
-
-import React from 'react'
 import { Button } from "@/components/ui/button"
 import { FaPlus } from "react-icons/fa6";
-import { useRouter } from 'next/navigation';
+import Link from 'next/link';
 
 const OrganizerEventHeader = () => {
-
-  const router = useRouter()
 
   return (
     <div className="flex items-center justify-between">
         <h3>My tickets</h3>
 
-        <Button 
-          onClick={() => router.push('organizer/events/new')}
-          className='flex items-center gap-x-2'>
-            <FaPlus />
-            New event
-        </Button>
+        <Link
+        href="/organizer/events/new"
+        >
+          <Button 
+            className='flex cursor-pointer items-center gap-x-2'>
+              <FaPlus />
+              New event
+          </Button>
+        </Link>
     </div>
   )
 }
