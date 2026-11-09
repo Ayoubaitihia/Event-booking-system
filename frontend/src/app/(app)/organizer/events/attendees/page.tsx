@@ -1,6 +1,11 @@
+import SideBar from "@/components/layout/Sidebar";
+import AttendeeStats from "@/components/organizer/attendees/AttendeeStats";
+
 export default function EventAttendess()
 {
     return (
-        <h1>EventAttendess</h1>
+        <SideBar>
+            <AttendeeStats/>
+        </SideBar>
     )
 }
