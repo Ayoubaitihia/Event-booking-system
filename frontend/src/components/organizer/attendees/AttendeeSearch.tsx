@@ -4,7 +4,6 @@ import {
   InputGroupAddon,
   InputGroupInput,
 } from "@/components/ui/input-group"
-import { Kbd } from "@/components/ui/kbd"
 
 export default function AttendeeSearch()
 {
