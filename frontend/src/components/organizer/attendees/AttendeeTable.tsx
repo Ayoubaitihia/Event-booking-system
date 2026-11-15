@@ -6,6 +6,10 @@ import {
     TableHeader, 
     TableRow 
 } from "@/components/ui/table";
+import { Button } from "@/components/ui/button"
+import AttendeeStatusBadge from "./AttendeeStatusBadge";
+import CheckInButton from "./CheckInButton";
+
 
 export default function AttendeeTable()
 {
@@ -55,23 +59,23 @@ export default function AttendeeTable()
     ];
 
     return (
-        <Table>
+        <Table className="border">
             <TableHeader>
                 <TableRow>
-                    <TableHead className="uppercase">attendee</TableHead>
-                    <TableHead className="uppercase">ticket</TableHead>
-                    <TableHead className="uppercase">registered</TableHead>
-                    <TableHead className="uppercase">status</TableHead>
-                    <TableHead className="uppercase">actions</TableHead>
+                    <TableHead className="uppercase text-gray-600">attendee</TableHead>
+                    <TableHead className="uppercase text-gray-600">ticket</TableHead>
+                    <TableHead className="uppercase text-gray-600">registered</TableHead>
+                    <TableHead className="uppercase text-gray-600">status</TableHead>
+                    <TableHead className="uppercase text-gray-600">actions</TableHead>
                 </TableRow>
              </TableHeader>
             <TableBody>
                 {attendees.map((item) => (
                     <TableRow key={item.id}>
                         <TableCell>
-                            <div className="flex items-center gap-x-4">
+                            <div className="flex items-center gap-x-3">
                                 <img 
-                                    className="w-10 h-10 rounded-full" 
+                                    className="w-8 h-8 rounded-full" 
                                     src="https://randomuser.me/api/portraits/men/62.jpg"
                                     alt=""
                                 />
@@ -91,8 +95,19 @@ export default function AttendeeTable()
                         <TableCell>
                             <span className="font-light">{item.registered}</span>
                         </TableCell>
-                        <TableCell>{item.status}</TableCell>
-                        <TableCell></TableCell>
+                        <TableCell>
+                            {/* <Badge className="bg-green-50 text-green-700 dark:bg-green-950 dark:text-green-400">
+                                <span className="w-2 h-2 bg-green-600 rounded-full"></span>
+                                {item.status}
+                            </Badge> */}
+                            <AttendeeStatusBadge status={item.status}/>
+                        </TableCell>
+                        <TableCell className="flex items-center gap-x-4">
+                            <CheckInButton/>
+                            <Button size="sm" className="m-0" variant="outline">
+                                View
+                            </Button>
+                        </TableCell>
                     </TableRow>
                     ))
                 }
