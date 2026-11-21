@@ -3,25 +3,25 @@ export default function AttendeeStats()
     const states = [
         {
             id: 1, 
-            title: "Total Attendees",
+            title: "Total events",
             value: 248,
             description: "of 300 capacity"
         },
         {
             id: 2, 
-            title: "Checked In",
+            title: "Published",
             value: 248,
             description: "73.8% attendance rate"
         },
         {
             id: 3, 
-            title: "Revenue",
+            title: "Drafts",
             value: 248,
             description: "from ticket sales"
         },
         {
             id: 4, 
-            title: "Cancellations",
+            title: "Sold out",
             value: 21,
             description: "4.8% cancellation rate"
         }

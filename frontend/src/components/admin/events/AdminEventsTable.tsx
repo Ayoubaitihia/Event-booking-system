@@ -12,6 +12,7 @@ import {ADMIN_EVENTS} from "@/lib/static/events"
 import { CiEdit } from "react-icons/ci";
 import { CiTrash } from "react-icons/ci";
 import { BiUserCheck } from "react-icons/bi";
+import AdminEventStatusBadge from "./AdminEventStatusBadge";
 
 
 export default function AdminEventsTable()
@@ -34,7 +35,7 @@ export default function AdminEventsTable()
                     <TableRow key={item.id}>
                         <TableCell>
                             <h4 className="font-medium">{item.title}</h4>
-                            <span className="text-xs">{item.categoryEmoji}{item.category} . {item.organizer}</span>
+                            <span className="text-xs">{item.categoryEmoji} {item.category} . {item.organizer}</span>
                         </TableCell>
                         <TableCell className="flex items-center justify-start gap-2">
                             <span className="p-1.5 text-xs rounded-full font-semibold text-gray-500 border bg-gray-50">
@@ -46,7 +47,7 @@ export default function AdminEventsTable()
                             <span className="text-gray-600 font-light">{item.date}</span>
                         </TableCell>
                         <TableCell>
-                            <Badge className="text-green-600 bg-green-200">{item.status}</Badge>
+                            <AdminEventStatusBadge status={item.status}/>
                         </TableCell>
                         <TableCell>
                             <span className="text-xs">{item.attendees}/{item.capacity}</span>
@@ -56,10 +57,16 @@ export default function AdminEventsTable()
                             <span className="text-xs font-semibold">$9,360</span>
                         </TableCell>
                         <TableCell>
-                            <span className="flex items-center gap-x-3">
-                                <BiUserCheck />
-                                <CiEdit />
-                                <CiTrash />
+                            <span className="flex items-center gap-x-2">
+                                <span className="p-1 text-gray-600 hover:text-gray-900 border hover:border-gray-100 border-transparent rounded-md cursor-pointer">
+                                    <BiUserCheck />
+                                </span>
+                                <span className="p-1 text-gray-600 hover:text-gray-900 border hover:border-gray-100 border-transparent rounded-md cursor-pointer">
+                                    <CiEdit />
+                                </span>
+                                <span  className="p-1 text-gray-600 hover:text-gray-900 border hover:border-gray-100 border-transparent rounded-md cursor-pointer">
+                                    <CiTrash />
+                                </span>
                             </span>
                         </TableCell>
                     </TableRow>
