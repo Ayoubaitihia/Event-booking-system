@@ -146,3 +146,151 @@ export const STATIC_ATTENDEES: AttendeeRow[] = [
   { id: 7, name: "Omar Benali",     email: "omar@example.com",   tickets: 4, total_paid: 196, booked_at: "2025-05-20T10:00", status: "confirmed" },
   { id: 8, name: "Hind Lakrimi",    email: "hind@example.com",   tickets: 1, total_paid: 49,  booked_at: "2025-05-22T15:00", status: "pending"   },
 ]
+
+
+export type AdminEventRow = {
+  id: string
+  title: string
+  category: string
+  categoryEmoji: string
+  organizer: string
+  organizerInitials: string
+  date: string
+  status: "published" | "draft" | "sold_out" | "cancelled"
+  attendees: number
+  capacity: number
+  revenue: number | null
+}
+
+export const ADMIN_EVENTS: AdminEventRow[] = [
+  {
+    id: "evt-001",
+    title: "React Summit 2024",
+    category: "Tech",
+    categoryEmoji: "💻",
+    organizer: "Sarah Chen",
+    organizerInitials: "SC",
+    date: "2024-11-14",
+    status: "published",
+    attendees: 248,
+    capacity: 300,
+    revenue: 18450,
+  },
+  {
+    id: "evt-002",
+    title: "Jazz in the Park",
+    category: "Music",
+    categoryEmoji: "🎵",
+    organizer: "Marcus Kim",
+    organizerInitials: "MK",
+    date: "2024-11-20",
+    status: "published",
+    attendees: 312,
+    capacity: 400,
+    revenue: 9360,
+  },
+  {
+    id: "evt-003",
+    title: "Digital Art Expo",
+    category: "Art",
+    categoryEmoji: "🎨",
+    organizer: "Lena Fischer",
+    organizerInitials: "LF",
+    date: "2024-12-01",
+    status: "sold_out",
+    attendees: 90,
+    capacity: 90,
+    revenue: 7120,
+  },
+  {
+    id: "evt-004",
+    title: "Web3 Workshop",
+    category: "Tech",
+    categoryEmoji: "💻",
+    organizer: "James Okoye",
+    organizerInitials: "JO",
+    date: "2024-12-05",
+    status: "draft",
+    attendees: 0,
+    capacity: 50,
+    revenue: null,
+  },
+  {
+    id: "evt-005",
+    title: "Food & Culture Fest",
+    category: "Food",
+    categoryEmoji: "🍕",
+    organizer: "Aiko Tanaka",
+    organizerInitials: "AT",
+    date: "2024-12-10",
+    status: "published",
+    attendees: 520,
+    capacity: 600,
+    revenue: 15600,
+  },
+  {
+    id: "evt-006",
+    title: "UX Design Conference",
+    category: "Tech",
+    categoryEmoji: "💻",
+    organizer: "Sarah Chen",
+    organizerInitials: "SC",
+    date: "2024-12-15",
+    status: "published",
+    attendees: 180,
+    capacity: 250,
+    revenue: 12600,
+  },
+  {
+    id: "evt-007",
+    title: "Classical Night",
+    category: "Music",
+    categoryEmoji: "🎵",
+    organizer: "Nora Johansson",
+    organizerInitials: "NJ",
+    date: "2025-01-08",
+    status: "draft",
+    attendees: 0,
+    capacity: 200,
+    revenue: null,
+  },
+  {
+    id: "evt-008",
+    title: "Street Art Tour",
+    category: "Art",
+    categoryEmoji: "🎨",
+    organizer: "Diego Ramírez",
+    organizerInitials: "DR",
+    date: "2025-01-12",
+    status: "cancelled",
+    attendees: 45,
+    capacity: 60,
+    revenue: 1350,
+  },
+  {
+    id: "evt-009",
+    title: "AI & Future of Work",
+    category: "Tech",
+    categoryEmoji: "💻",
+    organizer: "Priya Nair",
+    organizerInitials: "PN",
+    date: "2025-01-20",
+    status: "published",
+    attendees: 390,
+    capacity: 500,
+    revenue: 23400,
+  },
+  {
+    id: "evt-010",
+    title: "Vegan Food Market",
+    category: "Food",
+    categoryEmoji: "🍕",
+    organizer: "Tobias Müller",
+    organizerInitials: "TM",
+    date: "2025-02-02",
+    status: "draft",
+    attendees: 0,
+    capacity: 300,
+    revenue: null,
+  },
+]
